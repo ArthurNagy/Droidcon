@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/my_agenda"
+        android:title="@string/my_agenda"
+        android:icon="@drawable/ic_view_agenda_24dp" />
+    <item
+        android:id="@+id/schedule"
+        android:title="@string/schedule"
+        android:icon="@drawable/ic_schedule_24dp" />
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings_24dp" />
+</menu>
