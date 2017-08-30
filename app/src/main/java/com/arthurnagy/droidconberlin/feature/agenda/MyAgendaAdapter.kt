@@ -3,7 +3,7 @@ package com.arthurnagy.droidconberlin.feature.agenda
 import android.support.annotation.LayoutRes
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SessionItemBinding
-import com.arthurnagy.droidconberlin.feature.ViewModelBoundAdapter
+import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 
 class MyAgendaAdapter : ViewModelBoundAdapter<SessionItemBinding, SessionItemViewModel>() {
     private val items = mutableListOf<String>()

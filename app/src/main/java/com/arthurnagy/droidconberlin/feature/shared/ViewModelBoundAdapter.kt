@@ -1,4 +1,4 @@
-package com.arthurnagy.droidconberlin.feature
+package com.arthurnagy.droidconberlin.feature.shared
 
 import android.databinding.DataBindingUtil
 import android.databinding.OnRebindCallback

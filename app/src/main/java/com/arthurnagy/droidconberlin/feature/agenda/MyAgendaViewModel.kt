@@ -8,9 +8,14 @@ class MyAgendaViewModel @Inject constructor() : DroidconViewModel() {
     val items = mutableListOf<String>()
 
     init {
-        for (category in 1..30) {
-            (1..20).mapTo(items) { "Item $it in category $category" }
+        for (category in 1..CATEGORY_COUNT) {
+            (1..ITEM_COUNT_PER_CATEGORY).mapTo(items) { "Item $it in category $category" }
         }
         adapter.setItems(items.filter { it is String })
+    }
+
+    companion object {
+        const val CATEGORY_COUNT = 30
+        const val ITEM_COUNT_PER_CATEGORY = 20
     }
 }

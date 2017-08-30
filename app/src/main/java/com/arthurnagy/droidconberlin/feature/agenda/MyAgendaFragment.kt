@@ -9,6 +9,7 @@ import com.arthurnagy.droidconberlin.MyAgendaBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
 import com.arthurnagy.droidconberlin.dimension
+import com.arthurnagy.droidconberlin.feature.shared.DividerItemDecoration
 import com.arthurnagy.droidconberlin.setupToolbar
 
 class MyAgendaFragment : DroidconFragment() {
@@ -25,8 +26,10 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
-        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(context.dimension(R.dimen.header_height),
-                { it % 20 == 0 },
-                { "Category ${it / 20 + 1}" }))
+        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(
+                headerHeight = context.dimension(R.dimen.header_height),
+                isHeader = { position -> position % MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY == 0 },
+                getHeaderTitle = { position -> "Category ${position / MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY + 1}" }))
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context))
     }
 }
