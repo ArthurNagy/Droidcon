@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -9,14 +9,13 @@
 
     <style name="AppBar">
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
     </style>
 
     <style name="BottomNavigation" parent="Widget.Design.BottomNavigationView">
         <item name="android:background">?android:attr/colorBackground</item>
         <item name="elevation">@dimen/bottom_nav_elevation</item>
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
 </resources>
