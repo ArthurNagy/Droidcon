@@ -1,5 +1,7 @@
 package com.arthurnagy.droidconberlin
 
+import android.content.Context
+import android.support.annotation.DimenRes
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -14,3 +16,5 @@ fun Fragment.setupToolbar(toolbar: Toolbar) {
     val activity = (this.activity as AppCompatActivity)
     activity.setSupportActionBar(toolbar)
 }
+
+fun Context.dimension(@DimenRes dimension: Int) = resources.getDimensionPixelSize(dimension)

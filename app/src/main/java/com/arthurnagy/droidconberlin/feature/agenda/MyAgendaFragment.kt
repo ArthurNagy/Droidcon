@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.MyAgendaBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
+import com.arthurnagy.droidconberlin.dimension
 import com.arthurnagy.droidconberlin.setupToolbar
 
 class MyAgendaFragment : DroidconFragment() {
@@ -24,12 +25,8 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
-        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(resources.getDimensionPixelSize(R.dimen.header_height),
-                true,
-                object : StickyHeaderItemDecoration.SectionCallback {
-                    override fun isSection(position: Int) = position % 20 == 0
-
-                    override fun getSectionHeader(position: Int) = "Category ${position / 20 + 1}"
-                }))
+        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(context.dimension(R.dimen.header_height),
+                { it % 20 == 0 },
+                { "Category ${it / 20 + 1}" }))
     }
 }
