@@ -61,9 +61,9 @@ class StickyHeaderItemDecoration(
         canvas.translate(0f, Math.max(0, child.top - headerView.height).toFloat())
         headerView.draw(canvas)
         canvas.restore()
-        if (child.top <= headerView.height) {
-            shadow.setBounds(0, headerView.bottom - shadowHeight, headerView.right, headerView.bottom )
-            shadow.draw(canvas)
-        }
+        val shadowPosition = Math.max(child.top, headerView.bottom)
+        shadow.setBounds(0, shadowPosition, headerView.right, shadowPosition + shadowHeight)
+        shadow.alpha = Math.max(0, Math.min(255, (((2 * headerHeight - child.top).toFloat() / headerHeight.toFloat()) * 255).toInt()))
+        shadow.draw(canvas)
     }
 }

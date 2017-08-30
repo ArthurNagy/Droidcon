@@ -17,8 +17,6 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         attributes.recycle()
     }
 
-    fun shouldDrawDecoration(childPosition: Int, recyclerView: RecyclerView) = childPosition < recyclerView.adapter.itemCount - 1
-
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
         if (parent.layoutManager == null || parent.itemAnimator != null && parent.itemAnimator.isRunning) {
             return
@@ -30,9 +28,9 @@ class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         if (childCount > 1) {
             for (childPosition in 0 until childCount - 1) {
                 parent.layoutManager.getChildAt(childPosition)?.let {
-                    val top = it.bottom + (it.layoutParams as RecyclerView.LayoutParams).bottomMargin
-                    if (shouldDrawDecoration(parent.getChildAdapterPosition(it), parent)) {
-                        divider.setBounds(left, top, right, top + divider.intrinsicHeight + it.translationY.toInt())
+                    if (parent.getChildAdapterPosition(it) > 0) {
+                        val top = it.top + (it.layoutParams as RecyclerView.LayoutParams).topMargin
+                        divider.setBounds(left, top - divider.intrinsicHeight, right, top + it.translationY.toInt())
                         divider.draw(canvas)
                     }
                 }
