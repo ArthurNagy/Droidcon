@@ -4,4 +4,5 @@
     <color name="primary_dark">#008ba3</color>
     <color name="accent">#ff3d00</color>
     <color name="icon_background">#212121</color>
+    <color name="header_background">#6f6f6f</color>
 </resources>
