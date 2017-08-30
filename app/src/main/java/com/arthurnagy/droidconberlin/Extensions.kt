@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.Toolbar
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 fun FragmentManager.replace(@IdRes containerId: Int, fragment: Fragment) {
     this.beginTransaction().replace(containerId, fragment).commit()
@@ -22,3 +24,7 @@ fun Fragment.setupToolbar(toolbar: Toolbar) {
 fun Context.dimension(@DimenRes dimension: Int) = resources.getDimensionPixelSize(dimension)
 
 fun Context.drawable(@DrawableRes drawable: Int) = AppCompatResources.getDrawable(this, drawable)
+
+operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
+    add(disposable)
+}

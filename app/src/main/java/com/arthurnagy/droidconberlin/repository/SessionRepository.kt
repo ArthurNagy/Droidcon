@@ -13,14 +13,30 @@ class SessionRepository @Inject constructor(
 ) : Repository<Session, String>() {
 
     override fun get(): Observable<List<Session>> {
-        TODO()
+        return memorySource.get().flatMap { memorySessions ->
+            if (memorySessions.isEmpty()) {
+                remoteSource.get().flatMap { remoteSessions ->
+                    Observable.fromIterable(remoteSessions)
+                            .flatMap { session -> memorySource.save(session) }
+                            .toList().toObservable()
+                }
+            } else {
+                Observable.just(memorySessions)
+            }
+        }
     }
 
-    override fun get(key: String): Observable<Session> {
-        TODO()
-    }
+    override fun get(key: String): Observable<Session> = Observable.concat(memorySource.get(key),
+            remoteSource.get(key))
+            .firstElement()
+            .toObservable()
 
     override fun delete(key: String): Observable<Boolean> {
         TODO()
     }
+
+    override fun save(data: Session): Observable<Session> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

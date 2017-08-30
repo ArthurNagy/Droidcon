@@ -11,4 +11,6 @@ interface Source<DataType, KeyType> {
 
     fun delete(key: KeyType): Observable<Boolean>
 
+    fun save(data: DataType): Observable<DataType>
+
 }
