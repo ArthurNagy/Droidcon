@@ -1,34 +1,24 @@
 package com.arthurnagy.droidconberlin.feature.agenda
 
-import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import com.arthurnagy.droidconberlin.R
-import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
+import com.arthurnagy.droidconberlin.SessionItemBinding
 import com.arthurnagy.droidconberlin.feature.ViewModelBoundAdapter
 
-class MyAgendaAdapter : ViewModelBoundAdapter<ViewDataBinding, DroidconViewModel>() {
-    private val items = mutableListOf<Any>()
+class MyAgendaAdapter : ViewModelBoundAdapter<SessionItemBinding, SessionItemViewModel>() {
+    private val items = mutableListOf<String>()
 
-    override fun getItemLayoutId(position: Int) = when (items[position]) {
-        is String -> R.layout.item_session
-        else -> R.layout.item_header
-    }
+    override fun getItemLayoutId(position: Int) = R.layout.item_session
 
-    override fun bindItem(holder: BindingViewHolder<ViewDataBinding, DroidconViewModel>, position: Int, payloads: List<Any>) = when (holder.itemViewType) {
-        R.layout.item_session -> (holder.viewModel as SessionItemViewModel).title.set(items[position] as String)
-        else -> (holder.viewModel as HeaderItemViewModel).title.set((items[position] as Int).toString())
-    }
+    override fun bindItem(holder: BindingViewHolder<SessionItemBinding, SessionItemViewModel>, position: Int, payloads: List<Any>) = holder.viewModel.title.set(items[position])
 
-    override fun createViewModel(@LayoutRes viewType: Int) = when (viewType) {
-        R.layout.item_session -> SessionItemViewModel()
-        else -> HeaderItemViewModel()
-    }
+    override fun createViewModel(@LayoutRes viewType: Int) = SessionItemViewModel()
 
     override fun getItemCount() = items.size
 
-    fun setItems(items: List<Any>) {
+    fun setItems(items: List<String>) {
         this.items.clear()
-        this.items.addAll(items.filter { it is String || it is Int })
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 }

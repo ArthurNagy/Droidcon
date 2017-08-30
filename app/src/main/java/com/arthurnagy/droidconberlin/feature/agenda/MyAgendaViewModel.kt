@@ -5,12 +5,12 @@ import javax.inject.Inject
 
 class MyAgendaViewModel @Inject constructor() : DroidconViewModel() {
     val adapter = MyAgendaAdapter()
+    val items = mutableListOf<String>()
 
     init {
-        val items = mutableListOf<Any>()
-        for (category in 0..50) {
-            (0..20).mapTo(items) { if (it == 0) category else "Item $it in category $category" }
+        for (category in 1..30) {
+            (1..20).mapTo(items) { "Item $it in category $category" }
         }
-        adapter.setItems(items)
+        adapter.setItems(items.filter { it is String })
     }
 }
