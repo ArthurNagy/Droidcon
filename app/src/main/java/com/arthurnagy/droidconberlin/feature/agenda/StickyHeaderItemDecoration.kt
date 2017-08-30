@@ -1,5 +1,6 @@
 package com.arthurnagy.droidconberlin.feature.agenda
 
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -8,14 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.HeaderItemBinding
-
 import com.arthurnagy.droidconberlin.R
+import com.arthurnagy.droidconberlin.dimension
+import com.arthurnagy.droidconberlin.drawable
 
 class StickyHeaderItemDecoration(
-        private val headerHeight: Int,
+        context: Context,
         private val isHeader: (Int) -> Boolean,
         private val getHeaderTitle: (Int) -> String) : RecyclerView.ItemDecoration() {
     private var headerBinding: HeaderItemBinding? = null
+    val headerHeight = context.dimension(R.dimen.header_height)
+    val shadowHeight = context.dimension(R.dimen.header_elevation)
+    private val shadow = context.drawable(R.drawable.bg_bottom_shadow)!!
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
@@ -56,5 +61,9 @@ class StickyHeaderItemDecoration(
         canvas.translate(0f, Math.max(0, child.top - headerView.height).toFloat())
         headerView.draw(canvas)
         canvas.restore()
+        if (child.top <= headerView.height) {
+            shadow.setBounds(0, headerView.bottom - shadowHeight, headerView.right, headerView.bottom )
+            shadow.draw(canvas)
+        }
     }
 }

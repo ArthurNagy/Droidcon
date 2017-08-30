@@ -26,8 +26,7 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
-        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(
-                headerHeight = context.dimension(R.dimen.header_height),
+        binding.recyclerView.addItemDecoration(StickyHeaderItemDecoration(context,
                 isHeader = { position -> position % MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY == 0 },
                 getHeaderTitle = { position -> "Category ${position / MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY + 1}" }))
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context))

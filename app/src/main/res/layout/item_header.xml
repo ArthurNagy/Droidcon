@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--suppress AndroidUnknownAttribute -->
     <data class=".HeaderItemBinding" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_height">
-
-        <View
-            android:id="@+id/shadow"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_elevation"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_bottom_shadow"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/shadow"
-            android:background="@color/header_background"
-            android:gravity="center_vertical"
-            android:padding="@dimen/content_padding"
-            android:textColor="@android:color/white" />
-
-    </RelativeLayout>
+        android:layout_height="@dimen/header_height"
+        android:background="@color/header_background"
+        android:gravity="center_vertical"
+        android:padding="@dimen/content_padding"
+        android:textColor="@android:color/white" />
 
 </layout>
