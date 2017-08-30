@@ -1,4 +1,4 @@
-package com.arthurnagy.droidconberlin.feature.agenda
+package com.arthurnagy.droidconberlin.feature.shared
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -13,14 +13,15 @@ import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.dimension
 import com.arthurnagy.droidconberlin.drawable
 
-class StickyHeaderItemDecoration(
-        context: Context,
-        private val isHeader: (Int) -> Boolean,
-        private val getHeaderTitle: (Int) -> String) : RecyclerView.ItemDecoration() {
+abstract class StickyHeaderItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private var headerBinding: HeaderItemBinding? = null
-    val headerHeight = context.dimension(R.dimen.header_height)
-    val shadowHeight = context.dimension(R.dimen.header_elevation)
+    private val headerHeight = context.dimension(R.dimen.header_height)
+    private val shadowHeight = context.dimension(R.dimen.header_elevation)
     private val shadow = context.drawable(R.drawable.bg_bottom_shadow)!!
+
+    abstract fun isHeader(position: Int): Boolean
+
+    abstract fun getHeaderTitle(position: Int): String
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
@@ -42,7 +43,7 @@ class StickyHeaderItemDecoration(
             }
         }
         var previousHeader = ""
-        for (i in 0..parent.childCount - 1) {
+        for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
             val position = parent.getChildAdapterPosition(child)
             val title = getHeaderTitle(position)

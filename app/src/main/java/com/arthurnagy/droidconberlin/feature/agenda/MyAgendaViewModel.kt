@@ -11,7 +11,7 @@ class MyAgendaViewModel @Inject constructor() : DroidconViewModel() {
         for (category in 1..CATEGORY_COUNT) {
             (1..ITEM_COUNT_PER_CATEGORY).mapTo(items) { "Item $it in category $category" }
         }
-        adapter.setItems(items.filter { it is String })
+        adapter.setItems(items)
     }
 
     companion object {
