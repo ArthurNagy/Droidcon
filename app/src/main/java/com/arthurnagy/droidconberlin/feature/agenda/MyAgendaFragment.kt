@@ -26,5 +26,4 @@ class MyAgendaFragment : DroidconFragment() {
         val viewModel = getViewModel(MyAgendaViewModel::class.java)
         binding.viewModel = viewModel
     }
-
 }

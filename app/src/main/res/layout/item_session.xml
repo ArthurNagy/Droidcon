@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--suppress AndroidUnknownAttribute -->
+    <data class=".SessionItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.arthurnagy.droidconberlin.feature.agenda.SessionItemViewModel" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding"
+        android:text="@{viewModel.title}" />
+
+</layout>

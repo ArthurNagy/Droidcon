@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="content_padding">8dp</dimen>
+
     <dimen name="appbar_elevation">4dp</dimen>
 
     <dimen name="bottom_nav_height">56dp</dimen>
     <dimen name="bottom_nav_elevation">8dp</dimen>
+
+    <dimen name="header_height">48dp</dimen>
 
 </resources>
