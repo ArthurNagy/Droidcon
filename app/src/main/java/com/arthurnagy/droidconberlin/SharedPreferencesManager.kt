@@ -13,6 +13,12 @@ constructor(@AppContext context: Context) {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
+    fun getLastSelectedTab() = getInt(LAST_SELECTED_TAB, 0)
+
+    fun setLastSelectedTab(lastSelectedTab: Int) {
+        put(LAST_SELECTED_TAB, lastSelectedTab)
+    }
+
     fun saveSessionIds(sessionIds: List<String>) {
         put(SAVED_SESSION_IDS, sessionIds.toSet())
     }
@@ -122,6 +128,7 @@ constructor(@AppContext context: Context) {
         //region PREFERENCE KEYS
         // Place for defining your preference keys. All of them should be private constants.
         private const val SAVED_SESSION_IDS = "savedSessionIds"
+        private const val LAST_SELECTED_TAB = "lastSelectedTab"
         //endregion
 
         private const val DEFAULT_INT_VALUE = 0
