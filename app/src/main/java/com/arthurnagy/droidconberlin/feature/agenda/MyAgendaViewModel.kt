@@ -3,8 +3,6 @@ package com.arthurnagy.droidconberlin.feature.agenda
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.SharedPreferencesManager
-import android.databinding.Bindable
-import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidconberlin.model.Session
