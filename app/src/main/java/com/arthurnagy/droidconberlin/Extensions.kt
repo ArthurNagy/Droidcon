@@ -32,4 +32,3 @@ fun Context.drawable(@DrawableRes drawable: Int) = AppCompatResources.getDrawabl
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
 }
-
