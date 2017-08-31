@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.scheduleSession.title}"
             android:textAppearance="@style/SessionTitleTextAppearance"
+            android:textStyle="@{viewModel.intermissionFlag ? 2 : 0}"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 
         <TextView

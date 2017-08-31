@@ -56,8 +56,10 @@ class ScheduleViewModel @Inject constructor(
             val currentItemCalendar = Calendar.getInstance()
             previousItemCalendar.time = adapter.getItem(position - 1).startDate
             currentItemCalendar.time = adapter.getItem(position).startDate
-            previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] &&
-                    previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE]
+            previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] ||
+                    previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE] ||
+                    (previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] &&
+                            previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE])
         }
     }
 
