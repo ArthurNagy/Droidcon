@@ -1,6 +1,7 @@
 package com.arthurnagy.droidconberlin
 
 import android.content.Context
+import android.databinding.BindingAdapter
 import android.support.annotation.DimenRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
@@ -9,8 +10,15 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.Toolbar
+import android.widget.TextView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+
+
+@BindingAdapter("android:textStyle")
+fun setTextStyle(textView: TextView, textStyle: Int) {
+    textView.setTypeface(textView.typeface, textStyle)
+}
 
 fun FragmentManager.replace(@IdRes containerId: Int, fragment: Fragment) {
     this.beginTransaction().replace(containerId, fragment).commit()
@@ -28,3 +36,4 @@ fun Context.drawable(@DrawableRes drawable: Int) = AppCompatResources.getDrawabl
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
 }
+

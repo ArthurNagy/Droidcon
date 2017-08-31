@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/content_padding"
             android:text="@{viewModel.scheduleSession.title}"
+            android:textStyle="@{viewModel.intermissionFlag ? 2 : 0}"
             android:textAppearance="@style/SessionTitleTextAppearance"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 

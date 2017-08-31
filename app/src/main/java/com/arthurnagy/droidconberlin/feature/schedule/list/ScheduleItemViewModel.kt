@@ -21,12 +21,19 @@ class ScheduleItemViewModel : DroidconViewModel() {
     @Bindable(PROPERTY_SESSION)
     fun getShortInfo(): String {
         scheduleSession?.let { session ->
-            val durationCalendar = Calendar.getInstance().apply {
+            val durationCalendar = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT")).apply {
                 time = Date(session.endDate.time - session.startDate.time)
             }
-            durationCalendar.clear(Calendar.ZONE_OFFSET)
-            println("hours: ${durationCalendar[Calendar.HOUR]}, minutes: ${durationCalendar[Calendar.MINUTE]}")
-            return " / ${session.room} stage"
+            val hours = durationCalendar[Calendar.HOUR]
+            val minutes = durationCalendar[Calendar.MINUTE]
+            var duration = ""
+            if (hours != 0) {
+                duration += "$hours h "
+            }
+            if (minutes != 0) {
+                duration += "$minutes min "
+            }
+            return "$duration/ ${session.room} stage"
         }
         return ""
     }
