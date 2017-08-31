@@ -48,6 +48,6 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
     override fun getItemCount() = items.size
 
     override fun bindItem(holder: BindingViewHolder<MyAgendaSessionItemBinding, MyAgendaItemViewModel>, position: Int, payloads: List<Any>) {
-        holder.viewModel.session.set(items[position])
+        holder.viewModel.scheduleSession = items[position]
     }
 }

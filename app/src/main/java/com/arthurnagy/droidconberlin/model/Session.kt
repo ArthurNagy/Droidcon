@@ -27,5 +27,4 @@ data class Session(
     companion object {
         const val INTERMISSION = "_intermission"
     }
-
 }

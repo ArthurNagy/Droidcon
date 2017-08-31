@@ -32,18 +32,9 @@ class ScheduleItemViewModel : DroidconViewModel() {
     }
 
     @Bindable(PROPERTY_SESSION)
-    fun getTerms(): String {
-        scheduleSession?.let {
-            return it.terms?.joinToString(separator = " / ", transform = { term -> term.name }) ?: ""
-        }
-        return ""
-    }
-
-    @Bindable(PROPERTY_SESSION)
     fun getIntermissionFlag() = scheduleSession?.id?.contains(Session.INTERMISSION)
 
     companion object {
         private const val PROPERTY_SESSION = "scheduleSession"
     }
-
 }

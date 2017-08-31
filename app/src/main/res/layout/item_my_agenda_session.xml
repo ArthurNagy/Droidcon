@@ -9,6 +9,9 @@
         <variable
             name="viewModel"
             type="com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaItemViewModel" />
+
+        <import type="android.view.View" />
+
     </data>
 
 
@@ -24,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.session.title}"
+            android:text="@{viewModel.scheduleSession.title}"
             android:textAppearance="@style/SessionTitleTextAppearance"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 
@@ -33,15 +36,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/small_padding"
-            android:text="14:00 - 15:30 / LAMARR"
+            android:text="@{viewModel.shortInfo}"
             android:textAppearance="@style/SessionShortInfoTextAppearance"
-            tools:text="LAMARR / 45 Minutes" />
+            tools:text="14:00 - 15:30 / LAMARR" />
 
         <com.arthurnagy.droidconberlin.feature.shared.TermsView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_padding"
-            app:terms="@{viewModel.session.terms}" />
+            android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
+            app:terms="@{viewModel.scheduleSession.terms}" />
 
     </LinearLayout>
 

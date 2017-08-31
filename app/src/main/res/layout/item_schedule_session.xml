@@ -43,16 +43,14 @@
             android:textAppearance="@style/SessionShortInfoTextAppearance"
             tools:text="LAMARR / 45 Minutes" />
 
-        <TextView
+        <com.arthurnagy.droidconberlin.feature.shared.TermsView
             android:id="@+id/session_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/short_info"
-            android:background="@color/accent"
             android:padding="@dimen/content_padding"
-            android:text="@{viewModel.terms}"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
-            tools:text="Arc"
+            app:terms="@{viewModel.scheduleSession.terms}"
             tools:visibility="gone" />
 
         <ImageView
