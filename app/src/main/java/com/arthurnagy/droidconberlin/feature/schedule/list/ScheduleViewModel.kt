@@ -3,6 +3,7 @@ package com.arthurnagy.droidconberlin.feature.schedule.list
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
+import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,6 +17,12 @@ class ScheduleViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
     private val disposables = CompositeDisposable()
     val adapter = ScheduleAdapter()
+    @Bindable
+    var sessionClick: Session? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.sessionClick)
+        }
     private var scheduleDateCalendar: Calendar = Calendar.getInstance()
     @Bindable
     var swipeRefreshState = false
@@ -60,7 +67,7 @@ class ScheduleViewModel @Inject constructor(
         disposables.clear()
     }
 
-    fun isHeaderItem(position: Int): Boolean = when (position) {
+    fun isHeaderItem(position: Int) = when (position) {
         0 -> true
         else -> {
             val previousItemCalendar = Calendar.getInstance()
@@ -72,6 +79,10 @@ class ScheduleViewModel @Inject constructor(
                     (previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] &&
                             previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE])
         }
+    }
+
+    fun onAdapterItemClicked(position: Int) {
+        sessionClick = adapter.getItem(position)
     }
 
     fun getHeaderItemTitle(position: Int): String

@@ -3,6 +3,8 @@ package com.arthurnagy.droidconberlin.feature.agenda
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.SharedPreferencesManager
+import android.databinding.Bindable
+import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidconberlin.model.Session
@@ -25,6 +27,12 @@ class MyAgendaViewModel @Inject constructor(
         set(value) {
             field = value
             notifyPropertyChanged(BR.swipeRefreshState)
+        }
+    @Bindable
+    var sessionClick: Session? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.sessionClick)
         }
 
     fun subscribe() {
@@ -55,6 +63,10 @@ class MyAgendaViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
+    }
+
+    fun onAdapterItemClicked(position: Int) {
+        sessionClick = adapter.getItem(position)
     }
 
     fun isHeaderItem(position: Int): Boolean = when (position) {

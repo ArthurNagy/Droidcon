@@ -13,10 +13,6 @@ import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 
 abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewModel> : RecyclerView.Adapter<ViewModelBoundAdapter.BindingViewHolder<VB, VM>>() {
 
-    companion object {
-        private val DB_PAYLOAD = Any()
-    }
-
     private var recyclerView: RecyclerView? = null
     private var itemClickListener: (position: Int) -> Unit = { _ -> }
     private val rebindCallback: OnRebindCallback<VB>
@@ -45,8 +41,10 @@ abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewMode
 
     protected abstract fun createViewModel(@LayoutRes viewType: Int): VM
 
-    fun setItemClickListener(itemClickListener: (position: Int) -> Unit) {
-        this.itemClickListener = itemClickListener
+    fun setItemClickListener(itemClickListener: AdapterItemClickListener) {
+        this.itemClickListener = {
+            itemClickListener.onItemClicked(it)
+        }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -78,6 +76,15 @@ abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewMode
     }
 
     override fun getItemViewType(position: Int) = getItemLayoutId(position)
+
+    companion object {
+        private val DB_PAYLOAD = Any()
+    }
+
+    interface AdapterItemClickListener {
+
+        fun onItemClicked(position: Int)
+    }
 
     class BindingViewHolder<out VB : ViewDataBinding, out VM : Any>
     private constructor(val binding: VB, val viewModel: VM) : RecyclerView.ViewHolder(binding.root) {

@@ -17,10 +17,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:paddingBottom="@dimen/content_padding"
         android:paddingStart="@dimen/large_content_padding"
-        android:paddingTop="@dimen/large_content_padding"
-        tools:background="@color/primary_dark">
+        android:paddingTop="@dimen/large_content_padding">
 
         <TextView
             android:id="@+id/title"

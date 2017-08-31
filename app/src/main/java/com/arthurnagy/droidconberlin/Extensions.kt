@@ -16,10 +16,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 
-@BindingAdapter("android:textStyle")
-fun setTextStyle(textView: TextView, textStyle: Int) {
-    textView.setTypeface(textView.typeface, textStyle)
-}
 
 fun FragmentManager.replace(@IdRes containerId: Int, fragment: Fragment) {
     this.beginTransaction().replace(containerId, fragment).commit()
@@ -48,4 +44,3 @@ fun View.showSnackbar(@StringRes message: Int, length: Int = Snackbar.LENGTH_LON
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
 }
-

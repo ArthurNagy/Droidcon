@@ -1,6 +1,7 @@
 package com.arthurnagy.droidconberlin.feature.agenda.list
 
 import android.support.v7.util.DiffUtil
+import android.util.Log
 import com.arthurnagy.droidconberlin.MyAgendaSessionItemBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
@@ -53,11 +54,16 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
     }
 
     fun removeItemToBeRemoved() {
-        //TODO: notify
+        itemToBeRemoved?.let {
+            //TODO: delete item from list of saved sessions
+            Log.d("DEBUG","Permanently delete ${itemToBeRemoved?.title}")
+            itemToBeRemoved = null
+        }
     }
 
     fun undoItemRemoval() {
         itemToBeRemoved?.let {
+            Log.d("DEBUG","Undo deleting ${itemToBeRemoved?.title}")
             items.add(positionOfItemToBeRemoved, it)
             notifyItemInserted(positionOfItemToBeRemoved)
             itemToBeRemoved = null
