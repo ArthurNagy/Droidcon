@@ -25,8 +25,10 @@ abstract class StickyHeaderItemDecoration(context: Context) : RecyclerView.ItemD
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
-        if (isHeader(parent.getChildAdapterPosition(view))) {
-            outRect.top = headerHeight
+        parent.getChildAdapterPosition(view).let {
+            if (it >= 0 && isHeader(it)) {
+                outRect.top = headerHeight
+            }
         }
     }
 

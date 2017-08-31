@@ -9,6 +9,8 @@ import com.arthurnagy.droidconberlin.model.Session
 class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgendaItemViewModel>() {
 
     private var items: MutableList<Session> = mutableListOf()
+    private var itemToBeRemoved: Session? = null
+    var positionOfItemToBeRemoved = 0
 
     fun replace(newItems: List<Session>) {
         if (items.isEmpty()) {
@@ -39,7 +41,28 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
         }
     }
 
-    fun getItem(position: Int) = items[position]
+    fun getItem(position: Int) = if (position < 0) itemToBeRemoved!! else items[position]
+
+    fun canRemoveItem() = itemToBeRemoved == null
+
+    fun removeItem(position: Int) {
+        positionOfItemToBeRemoved = position
+        itemToBeRemoved = items[position]
+        items.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun removeItemToBeRemoved() {
+        //TODO: notify
+    }
+
+    fun undoItemRemoval() {
+        itemToBeRemoved?.let {
+            items.add(positionOfItemToBeRemoved, it)
+            notifyItemInserted(positionOfItemToBeRemoved)
+            itemToBeRemoved = null
+        }
+    }
 
     override fun getItemLayoutId(position: Int) = R.layout.item_my_agenda_session
 

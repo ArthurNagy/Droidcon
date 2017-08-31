@@ -4,5 +4,5 @@
     <string name="schedule">Schedule</string>
     <string name="settings">Settings</string>
     <string name="content_desc_save_session">Save session</string>
-    <string name="session_short_info">%1$d minutes / %2$s stage</string>
+    <string name="undo">Undo</string>
 </resources>
