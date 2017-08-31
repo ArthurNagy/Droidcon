@@ -9,6 +9,7 @@ import com.arthurnagy.droidconberlin.model.Session
 class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, ScheduleItemViewModel>() {
 
     private var items: MutableList<Session> = mutableListOf()
+    private var itemSavedClickListener: (position: Int) -> Unit = { _ -> }
 
     fun replace(newItems: List<Session>) {
         if (items.isEmpty()) {
@@ -40,6 +41,12 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
     }
 
     fun getItem(position: Int) = items[position]
+
+    fun setItemSavedClickListener(itemClickListener: AdapterItemClickListener) {
+        this.itemSavedClickListener = {
+            itemClickListener.onItemClicked(it)
+        }
+    }
 
     override fun getItemLayoutId(position: Int) = R.layout.item_schedule_session
 

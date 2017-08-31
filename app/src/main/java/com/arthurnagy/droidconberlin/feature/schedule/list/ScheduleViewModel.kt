@@ -76,6 +76,11 @@ class ScheduleViewModel @Inject constructor(
         sessionClick = adapter.getItem(position)
     }
 
+    fun onAdapterItemSaveClicked(position: Int) {
+        //TODO: save item to repository, update drawable
+        println("Favorited ${adapter.getItem(position).title}")
+    }
+
     fun getHeaderItemTitle(position: Int): String
             = SimpleDateFormat(STICKY_TIME_PATTERN, Locale.getDefault()).format(adapter.getItem(position).startDate)
 
