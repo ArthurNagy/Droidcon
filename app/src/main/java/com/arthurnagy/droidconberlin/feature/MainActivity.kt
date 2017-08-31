@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<MainBinding>(this, R.layout.activity_main)
+        binding.bottomNavigation.selectedItemId = R.id.my_agenda
         supportFragmentManager.replace(R.id.fragment_container, MyAgendaFragment())
         binding.bottomNavigation.setOnNavigationItemSelectedListener { navigationItem ->
             supportFragmentManager.replace(R.id.fragment_container, when (navigationItem.itemId) {

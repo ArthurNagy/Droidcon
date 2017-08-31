@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="small_padding">4dp</dimen>
     <dimen name="content_padding">8dp</dimen>
 
     <dimen name="bottom_nav_height">56dp</dimen>
 
     <dimen name="header_height">48dp</dimen>
     <dimen name="header_elevation">4dp</dimen>
+    <dimen name="large_content_padding">16dp</dimen>
 
 </resources>

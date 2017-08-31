@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlSymmetry">
+
+    <!--suppress AndroidUnknownAttribute -->
+    <data class=".ScheduleSessionItemBinding">
+
+        <variable
+            name="viewModel"
+            type="com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/content_padding"
+        android:paddingStart="@dimen/large_content_padding"
+        android:paddingTop="@dimen/large_content_padding">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/content_padding"
+            android:textAppearance="@style/SessionTitleTextAppearance"
+            tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
+
+        <TextView
+            android:id="@+id/short_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/title"
+            android:paddingTop="@dimen/small_padding"
+            android:textAppearance="@style/SessionShortInfoTextAppearance"
+            tools:text="LAMARR / 45 Minutes" />
+
+        <TextView
+            android:id="@+id/session_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/short_info"
+            android:layout_marginTop="@dimen/content_padding"
+            android:background="@color/accent"
+            android:padding="@dimen/content_padding"
+            tools:text="Arc" />
+
+        <ImageView
+            android:id="@+id/session_saved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/short_info"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_desc_save_session"
+            android:padding="@dimen/large_content_padding"
+            app:srcCompat="@drawable/ic_add_box_24dp" />
+
+    </RelativeLayout>
+
+</layout>

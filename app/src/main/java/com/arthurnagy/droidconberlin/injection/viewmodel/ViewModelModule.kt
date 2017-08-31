@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModelFactory
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaViewModel
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerViewModel
-import com.arthurnagy.droidconberlin.feature.schedule.ScheduleViewModel
+import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleViewModel
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailViewModel
 import com.arthurnagy.droidconberlin.feature.settings.SettingsViewModel
 import dagger.Binds

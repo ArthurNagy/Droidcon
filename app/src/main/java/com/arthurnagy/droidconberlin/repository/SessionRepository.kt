@@ -22,7 +22,7 @@ class SessionRepository @Inject constructor(
                 }
             } else {
                 Observable.just(memorySessions)
-            }
+            }.doOnNext(dataStream::accept)
         }
     }
 

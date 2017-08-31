@@ -1,10 +1,10 @@
 package com.arthurnagy.droidconberlin.architecture.repository
 
-import io.reactivex.subjects.PublishSubject
+import com.jakewharton.rxrelay2.PublishRelay
 
 abstract class Repository<DataType, KeyType> : Source<DataType, KeyType> {
 
-    protected val dataStream: PublishSubject<List<DataType>> = PublishSubject.create()
+    protected val dataStream: PublishRelay<List<DataType>> = PublishRelay.create()
 
     fun stream() = dataStream
 

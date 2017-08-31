@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--suppress AndroidUnknownAttribute -->
     <data class=".ScheduleBinding">
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.schedule.ScheduleViewModel" />
+            type="com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleViewModel" />
     </data>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/schedule_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_schedule_session" />
 
 </layout>

@@ -1,6 +1,5 @@
 package com.arthurnagy.droidconberlin.feature.schedule
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,7 +11,10 @@ import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SchedulePagerBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
+import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleFragment
 import com.arthurnagy.droidconberlin.setupToolbar
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SchedulePagerFragment : DroidconFragment() {
 
@@ -30,20 +32,25 @@ class SchedulePagerFragment : DroidconFragment() {
         val viewModel = getViewModel(SchedulePagerViewModel::class.java)
         binding.viewModel = viewModel
 
-        binding.pager.adapter = SchedulePagerAdapter(context, childFragmentManager)
+        binding.pager.adapter = SchedulePagerAdapter(childFragmentManager)
         binding.tab.setupWithViewPager(binding.pager)
     }
 
-    class SchedulePagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    class SchedulePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+        companion object {
+            private val DATE_PATTERN = "MMMM d"
+            private val TITLE_DATES = arrayOf(Date(1504483200000), Date(1504569600000))
+        }
 
         override fun getItem(position: Int): Fragment {
-            return ScheduleFragment()
+            return ScheduleFragment.newInstance(TITLE_DATES[position].time)
         }
 
         override fun getCount(): Int = 2
 
         override fun getPageTitle(position: Int): CharSequence {
-            return context.getString(R.string.schedule_tab_title, 4 + position)
+            return SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(TITLE_DATES[position])
         }
 
     }
