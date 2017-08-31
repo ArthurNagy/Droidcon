@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--suppress AndroidUnknownAttribute -->
     <data class=".MyAgendaSessionItemBinding">
@@ -9,10 +10,42 @@
             type="com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaItemViewModel" />
     </data>
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/content_padding"
-        android:text="Session" />
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/content_padding"
+        android:paddingEnd="@dimen/large_content_padding"
+        android:paddingStart="@dimen/large_content_padding"
+        android:paddingTop="@dimen/large_content_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.session.title}"
+            android:textAppearance="@style/SessionTitleTextAppearance"
+            tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
+
+        <TextView
+            android:id="@+id/short_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="14:00 - 15:30 / LAMARR"
+            android:paddingTop="@dimen/small_padding"
+            android:textAppearance="@style/SessionShortInfoTextAppearance"
+            tools:text="LAMARR / 45 Minutes" />
+
+        <TextView
+            android:id="@+id/session_labels"
+            android:layout_width="wrap_content"
+            android:text="Arc"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding"
+            android:background="@color/accent"
+            android:padding="@dimen/content_padding"
+            tools:text="Arc" />
+
+    </LinearLayout>
 
 </layout>
