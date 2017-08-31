@@ -67,5 +67,4 @@ class ScheduleViewModel @Inject constructor(
     companion object {
         private const val STICKY_TIME_PATTERN = "hh:mm a"
     }
-
 }

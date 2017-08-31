@@ -2,17 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--suppress AndroidUnknownAttribute -->
-    <data class=".SessionItemBinding">
+    <data class=".MyAgendaSessionItemBinding">
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.agenda.SessionItemViewModel" />
+            type="com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaItemViewModel" />
     </data>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/content_padding"
-        android:text="@{viewModel.title}" />
+        android:text="Session" />
 
 </layout>

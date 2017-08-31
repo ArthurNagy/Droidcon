@@ -27,10 +27,12 @@ class MyAgendaFragment : DroidconFragment() {
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
         binding.recyclerView.addItemDecoration(object : StickyHeaderItemDecoration(context) {
-            override fun isHeader(position: Int) = position % MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY == 0
+            override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
 
-            override fun getHeaderTitle(position: Int) = "Category ${position / MyAgendaViewModel.ITEM_COUNT_PER_CATEGORY + 1}"
+            override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
         })
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        viewModel.subscribe()
+        viewModel.load()
     }
 }

@@ -1,12 +1,12 @@
-package com.arthurnagy.droidconberlin.feature.schedule.list
+package com.arthurnagy.droidconberlin.feature.agenda.list
 
 import android.support.v7.util.DiffUtil
 import com.arthurnagy.droidconberlin.R
-import com.arthurnagy.droidconberlin.ScheduleSessionItemBinding
+import com.arthurnagy.droidconberlin.MyAgendaSessionItemBinding
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidconberlin.model.Session
 
-class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, ScheduleItemViewModel>() {
+class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgendaItemViewModel>() {
 
     private var items: MutableList<Session> = mutableListOf()
 
@@ -41,12 +41,12 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
 
     fun getItem(position: Int) = items[position]
 
-    override fun getItemLayoutId(position: Int) = R.layout.item_schedule_session
+    override fun getItemLayoutId(position: Int) = R.layout.item_my_agenda_session
 
-    override fun createViewModel(viewType: Int) = ScheduleItemViewModel()
+    override fun createViewModel(viewType: Int) = MyAgendaItemViewModel()
 
     override fun getItemCount() = items.size
 
-    override fun bindItem(holder: BindingViewHolder<ScheduleSessionItemBinding, ScheduleItemViewModel>, position: Int, payloads: List<Any>) {
+    override fun bindItem(holder: BindingViewHolder<MyAgendaSessionItemBinding, MyAgendaItemViewModel>, position: Int, payloads: List<Any>) {
     }
 }
