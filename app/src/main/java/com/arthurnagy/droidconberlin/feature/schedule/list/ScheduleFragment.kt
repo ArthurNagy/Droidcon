@@ -35,6 +35,7 @@ class ScheduleFragment : DroidconFragment() {
 
             override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
         })
+//        binding.scheduleRefreshLayout.setColorSchemeColors()
         viewModel.load()
     }
 

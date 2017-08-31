@@ -23,4 +23,9 @@ data class Session(
         @SerializedName("3521")
         ZUSE
     }
+
+    companion object {
+        const val INTERMISSION = "_intermission"
+    }
+
 }

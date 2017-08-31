@@ -11,11 +11,18 @@
             type="com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleViewModel" />
     </data>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/schedule_recycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/schedule_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/item_schedule_session" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/schedule_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/item_schedule_session" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </layout>
