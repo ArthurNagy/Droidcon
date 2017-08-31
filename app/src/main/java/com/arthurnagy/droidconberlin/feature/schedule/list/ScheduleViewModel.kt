@@ -1,5 +1,7 @@
 package com.arthurnagy.droidconberlin.feature.schedule.list
 
+import android.databinding.Bindable
+import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
@@ -15,6 +17,12 @@ class ScheduleViewModel @Inject constructor(
     private val disposables = CompositeDisposable()
     val adapter = ScheduleAdapter()
     private var scheduleDateCalendar: Calendar = Calendar.getInstance()
+    @Bindable
+    var swipeRefreshState = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.swipeRefreshState)
+        }
 
     fun setScheduleDate(dateTimestamp: Long) {
         scheduleDateCalendar.time = Date(dateTimestamp)
@@ -36,11 +44,14 @@ class ScheduleViewModel @Inject constructor(
     }
 
     fun load() {
+        swipeRefreshState = true
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, { error ->
-                    println(error.message)
+                .subscribe({
+                    swipeRefreshState = false
+                }, {
+                    swipeRefreshState = false
                 })
     }
 

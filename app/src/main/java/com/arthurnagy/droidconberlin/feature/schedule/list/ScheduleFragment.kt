@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.ScheduleBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
+import com.arthurnagy.droidconberlin.color
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
 
 class ScheduleFragment : DroidconFragment() {
@@ -35,7 +36,8 @@ class ScheduleFragment : DroidconFragment() {
 
             override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
         })
-//        binding.scheduleRefreshLayout.setColorSchemeColors()
+
+        binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
         viewModel.load()
     }
 
