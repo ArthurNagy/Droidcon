@@ -49,7 +49,7 @@ class ScheduleViewModel @Inject constructor(
         disposables.clear()
     }
 
-    fun isHeaderItem(position: Int): Boolean = when (position) {
+    fun isHeaderItem(position: Int) = when (position) {
         0 -> true
         else -> {
             val previousItemCalendar = Calendar.getInstance()
@@ -61,6 +61,10 @@ class ScheduleViewModel @Inject constructor(
                     (previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] &&
                             previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE])
         }
+    }
+
+    fun onAdapterItemClicked(position: Int) {
+        //TODO
     }
 
     fun getHeaderItemTitle(position: Int): String

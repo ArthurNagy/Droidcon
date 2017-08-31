@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:adapter="@{viewModel.adapter}"
+            app:adapterItemClickListener="@{(position) -> viewModel.onAdapterItemClicked(position)}"
             app:layoutManager="LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

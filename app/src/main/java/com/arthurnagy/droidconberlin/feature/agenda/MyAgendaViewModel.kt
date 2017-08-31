@@ -39,6 +39,10 @@ class MyAgendaViewModel @Inject constructor(
         disposables.clear()
     }
 
+    fun onAdapterItemClicked(position: Int) {
+        //TODO
+    }
+
     fun isHeaderItem(position: Int): Boolean = when (position) {
         0 -> true
         else -> {

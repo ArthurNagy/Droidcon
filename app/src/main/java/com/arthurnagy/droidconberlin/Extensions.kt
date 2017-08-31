@@ -14,12 +14,6 @@ import android.widget.TextView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-
-@BindingAdapter("android:textStyle")
-fun setTextStyle(textView: TextView, textStyle: Int) {
-    textView.setTypeface(textView.typeface, textStyle)
-}
-
 fun FragmentManager.replace(@IdRes containerId: Int, fragment: Fragment) {
     this.beginTransaction().replace(containerId, fragment).commit()
 }
