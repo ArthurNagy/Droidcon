@@ -6,6 +6,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="SessionTitleTextAppearance.Italic" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
     <style name="SessionShortInfoTextAppearance" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
     </style>
