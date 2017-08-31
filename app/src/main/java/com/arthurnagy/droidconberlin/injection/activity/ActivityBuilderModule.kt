@@ -2,6 +2,7 @@ package com.arthurnagy.droidconberlin.injection.activity
 
 import android.content.Context
 import com.arthurnagy.droidconberlin.feature.MainActivity
+import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.injection.fragment.FragmentBuilderModule
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,9 @@ abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class, FragmentBuilderModule::class))
     abstract fun contributeMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeSessionDetailActivity(): SessionDetailActivity
 
     @Module
     object MainActivityModule {

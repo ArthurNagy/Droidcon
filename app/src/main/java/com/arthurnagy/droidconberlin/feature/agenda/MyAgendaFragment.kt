@@ -1,6 +1,7 @@
 package com.arthurnagy.droidconberlin.feature.agenda
 
 import android.databinding.DataBindingUtil
+import android.databinding.Observable
 import android.os.Bundle
 import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.Snackbar
@@ -10,9 +11,11 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.MyAgendaBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
+import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
 import com.arthurnagy.droidconberlin.setupToolbar
 
@@ -57,6 +60,13 @@ class MyAgendaFragment : DroidconFragment() {
         }).attachToRecyclerView(binding.recyclerView)
         viewModel.subscribe()
         viewModel.load()
+        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                when (propertyId) {
+                    BR.sessionClick -> startActivity(SessionDetailActivity.getStartIntent(context, viewModel.sessionClick!!.id))
+                }
+            }
+        })
     }
 
     override fun onPause() {

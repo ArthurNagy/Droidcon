@@ -1,7 +1,10 @@
 package com.arthurnagy.droidconberlin.feature.agenda
 
+import android.databinding.Bindable
+import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
+import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,6 +18,12 @@ class MyAgendaViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
     private val disposables = CompositeDisposable()
     val adapter = MyAgendaAdapter()
+    @Bindable
+    var sessionClick: Session? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.sessionClick)
+        }
 
     fun subscribe() {
         disposables += sessionRepository.stream()
@@ -40,7 +49,7 @@ class MyAgendaViewModel @Inject constructor(
     }
 
     fun onAdapterItemClicked(position: Int) {
-        //TODO
+        sessionClick = adapter.getItem(position)
     }
 
     fun isHeaderItem(position: Int): Boolean = when (position) {
