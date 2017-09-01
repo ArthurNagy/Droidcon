@@ -44,14 +44,16 @@
                     android:text="@string/droidcon" />
 
                 <TextView
+                    android:id="@+id/code_of_conduct"
                     style="@style/InfoItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/info_item_height"
                     android:text="@string/code_of_conduct" />
 
-                <include layout="@layout/item_divider"/>
+                <include layout="@layout/item_divider" />
 
                 <TextView
+                    android:id="@+id/venue"
                     style="@style/InfoItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/info_item_height"
@@ -64,14 +66,16 @@
                     android:text="@string/about_the_app" />
 
                 <TextView
+                    android:id="@+id/view_on_git_hub"
                     style="@style/InfoItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/info_item_height"
                     android:text="@string/view_on_git_hub" />
 
-                <include layout="@layout/item_divider"/>
+                <include layout="@layout/item_divider" />
 
                 <TextView
+                    android:id="@+id/share"
                     style="@style/InfoItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/info_item_height"
