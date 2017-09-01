@@ -9,7 +9,7 @@ import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
-import com.arthurnagy.droidconberlin.feature.settings.SettingsFragment
+import com.arthurnagy.droidconberlin.feature.info.InfoFragment
 import com.arthurnagy.droidconberlin.replace
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         supportFragmentManager.replace(R.id.fragment_container, when (bottomNavigationTabId) {
             R.id.my_agenda -> MyAgendaFragment()
             R.id.schedule -> SchedulePagerFragment()
-            R.id.settings -> SettingsFragment()
+            R.id.info -> InfoFragment()
             else -> MyAgendaFragment()
         })
     }

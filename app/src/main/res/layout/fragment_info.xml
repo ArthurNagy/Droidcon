@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--suppress AndroidUnknownAttribute -->
-    <data class=".SettingsBinding">
+    <data class=".InfoBinding">
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.settings.SettingsViewModel" />
+            type="com.arthurnagy.droidconberlin.feature.info.InfoViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -23,7 +23,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/settings" />
+                app:title="@string/info" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -38,43 +38,43 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/SettingsHeader"
+                    style="@style/InfoHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_header_height"
+                    android:layout_height="@dimen/info_header_height"
                     android:text="@string/droidcon" />
 
                 <TextView
-                    style="@style/SettingsItem"
+                    style="@style/InfoItem"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_item_height"
+                    android:layout_height="@dimen/info_item_height"
                     android:text="@string/code_of_conduct" />
 
                 <include layout="@layout/item_divider"/>
 
                 <TextView
-                    style="@style/SettingsItem"
+                    style="@style/InfoItem"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_item_height"
+                    android:layout_height="@dimen/info_item_height"
                     android:text="@string/venue" />
 
                 <TextView
-                    style="@style/SettingsHeader"
+                    style="@style/InfoHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_header_height"
+                    android:layout_height="@dimen/info_header_height"
                     android:text="@string/about_the_app" />
 
                 <TextView
-                    style="@style/SettingsItem"
+                    style="@style/InfoItem"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_item_height"
+                    android:layout_height="@dimen/info_item_height"
                     android:text="@string/view_on_git_hub" />
 
                 <include layout="@layout/item_divider"/>
 
                 <TextView
-                    style="@style/SettingsItem"
+                    style="@style/InfoItem"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_item_height"
+                    android:layout_height="@dimen/info_item_height"
                     android:text="@string/share" />
 
             </LinearLayout>

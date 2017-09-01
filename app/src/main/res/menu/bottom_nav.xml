@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/my_agenda"
-        android:title="@string/my_agenda"
-        android:icon="@drawable/ic_view_agenda_24dp" />
+        android:icon="@drawable/ic_view_agenda_24dp"
+        android:title="@string/my_agenda" />
     <item
         android:id="@+id/schedule"
-        android:title="@string/schedule"
-        android:icon="@drawable/ic_schedule_24dp" />
+        android:icon="@drawable/ic_schedule_24dp"
+        android:title="@string/schedule" />
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_settings_24dp" />
+        android:id="@+id/info"
+        android:icon="@drawable/ic_info_24dp"
+        android:title="@string/info" />
 </menu>

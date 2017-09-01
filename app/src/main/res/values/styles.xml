@@ -15,7 +15,7 @@
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 
-    <style name="SettingsHeader" parent="SettingsItem">
+    <style name="InfoHeader" parent="InfoItem">
         <item name="android:clickable">false</item>
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textStyle">bold</item>
@@ -23,7 +23,7 @@
         <item name="android:textColor">@color/accent</item>
     </style>
 
-    <style name="SettingsItem">
+    <style name="InfoItem">
         <item name="android:clickable">true</item>
         <item name="android:paddingStart">@dimen/first_keyline</item>
         <item name="android:paddingEnd">@dimen/large_padding</item>
