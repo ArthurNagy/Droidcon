@@ -3,6 +3,7 @@ package com.arthurnagy.droidconberlin.feature.schedule.list
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
+import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
@@ -24,6 +25,19 @@ class ScheduleViewModel @Inject constructor(
             notifyPropertyChanged(BR.sessionClick)
         }
     private var scheduleDateCalendar: Calendar = Calendar.getInstance()
+
+    init {
+        adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
+            override fun onItemClicked(position: Int) {
+                sessionClick = adapter.getItem(position)
+            }
+        })
+
+        adapter.setItemSavedClickListener { position ->
+            println("Favorited ${adapter.getItem(position).title}")
+
+        }
+    }
 
     fun setScheduleDate(dateTimestamp: Long) {
         scheduleDateCalendar.time = Date(dateTimestamp)
@@ -70,15 +84,6 @@ class ScheduleViewModel @Inject constructor(
                     (previousItemCalendar[Calendar.HOUR] != currentItemCalendar[Calendar.HOUR] &&
                             previousItemCalendar[Calendar.MINUTE] != currentItemCalendar[Calendar.MINUTE])
         }
-    }
-
-    fun onAdapterItemClicked(position: Int) {
-        sessionClick = adapter.getItem(position)
-    }
-
-    fun onAdapterItemSaveClicked(position: Int) {
-        //TODO: save item to repository, update drawable
-        println("Favorited ${adapter.getItem(position).title}")
     }
 
     fun getHeaderItemTitle(position: Int): String
