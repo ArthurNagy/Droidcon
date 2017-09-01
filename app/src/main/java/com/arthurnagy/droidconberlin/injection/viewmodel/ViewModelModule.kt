@@ -4,10 +4,10 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModelFactory
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaViewModel
+import com.arthurnagy.droidconberlin.feature.info.InfoViewModel
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerViewModel
 import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleViewModel
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailViewModel
-import com.arthurnagy.droidconberlin.feature.info.InfoViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

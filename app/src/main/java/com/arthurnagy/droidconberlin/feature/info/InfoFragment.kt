@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.InfoBinding
+import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
 import com.arthurnagy.droidconberlin.util.setupToolbar
 

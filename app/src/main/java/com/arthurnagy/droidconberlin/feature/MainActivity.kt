@@ -8,8 +8,8 @@ import com.arthurnagy.droidconberlin.MainBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaFragment
-import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
 import com.arthurnagy.droidconberlin.feature.info.InfoFragment
+import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
 import com.arthurnagy.droidconberlin.util.replace
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
