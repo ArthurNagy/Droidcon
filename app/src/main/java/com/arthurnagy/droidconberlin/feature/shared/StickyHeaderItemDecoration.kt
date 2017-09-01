@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.HeaderItemBinding
 import com.arthurnagy.droidconberlin.R
-import com.arthurnagy.droidconberlin.dimension
-import com.arthurnagy.droidconberlin.drawable
+import com.arthurnagy.droidconberlin.util.dimension
+import com.arthurnagy.droidconberlin.util.drawable
 
 abstract class StickyHeaderItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private var headerBinding: HeaderItemBinding? = null

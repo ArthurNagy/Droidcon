@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SettingsBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
-import com.arthurnagy.droidconberlin.setupToolbar
+import com.arthurnagy.droidconberlin.util.setupToolbar
 
 class SettingsFragment : DroidconFragment() {
 

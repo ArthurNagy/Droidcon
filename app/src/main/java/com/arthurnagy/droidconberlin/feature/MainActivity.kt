@@ -10,7 +10,7 @@ import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
 import com.arthurnagy.droidconberlin.feature.settings.SettingsFragment
-import com.arthurnagy.droidconberlin.replace
+import com.arthurnagy.droidconberlin.util.replace
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

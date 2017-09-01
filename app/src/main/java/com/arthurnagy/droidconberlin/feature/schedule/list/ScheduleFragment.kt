@@ -11,9 +11,9 @@ import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.ScheduleBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
-import com.arthurnagy.droidconberlin.color
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
+import com.arthurnagy.droidconberlin.util.color
 
 class ScheduleFragment : DroidconFragment() {
 

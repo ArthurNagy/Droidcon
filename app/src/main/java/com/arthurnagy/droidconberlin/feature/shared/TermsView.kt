@@ -9,8 +9,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.arthurnagy.droidconberlin.R
-import com.arthurnagy.droidconberlin.dimension
 import com.arthurnagy.droidconberlin.model.Term
+import com.arthurnagy.droidconberlin.util.dimension
 
 @BindingMethods(*arrayOf(BindingMethod(type = TermsView::class, attribute = "terms", method = "setTerms")))
 class TermsView
@@ -25,7 +25,7 @@ class TermsView
             addView(textView)
             val layoutParams = textView.layoutParams as LinearLayout.LayoutParams
             layoutParams.marginEnd = padding
-            layoutParams.setMargins(0,0,padding, 0)
+            layoutParams.setMargins(0, 0, padding, 0)
             textView.layoutParams = layoutParams
         }
     }

@@ -17,7 +17,7 @@ import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
-import com.arthurnagy.droidconberlin.setupToolbar
+import com.arthurnagy.droidconberlin.util.setupToolbar
 
 class MyAgendaFragment : DroidconFragment() {
 

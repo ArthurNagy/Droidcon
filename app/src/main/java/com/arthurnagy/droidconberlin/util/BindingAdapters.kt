@@ -1,4 +1,4 @@
-package com.arthurnagy.droidconberlin
+package com.arthurnagy.droidconberlin.util
 
 import android.databinding.BindingAdapter
 import android.widget.TextView

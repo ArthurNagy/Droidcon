@@ -1,7 +1,6 @@
-package com.arthurnagy.droidconberlin
+package com.arthurnagy.droidconberlin.util
 
 import android.content.Context
-import android.databinding.BindingAdapter
 import android.support.annotation.*
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -11,10 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.widget.TextView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-
 
 
 fun FragmentManager.replace(@IdRes containerId: Int, fragment: Fragment) {

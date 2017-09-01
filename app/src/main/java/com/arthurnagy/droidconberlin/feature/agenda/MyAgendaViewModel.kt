@@ -7,8 +7,8 @@ import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidconberlin.model.Session
-import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
+import com.arthurnagy.droidconberlin.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

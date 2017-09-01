@@ -12,7 +12,7 @@ import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.SchedulePagerBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
 import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleFragment
-import com.arthurnagy.droidconberlin.setupToolbar
+import com.arthurnagy.droidconberlin.util.setupToolbar
 import java.text.SimpleDateFormat
 import java.util.*
 
