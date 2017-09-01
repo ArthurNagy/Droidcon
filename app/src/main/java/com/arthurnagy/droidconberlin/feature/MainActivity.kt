@@ -28,10 +28,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<MainBinding>(this, R.layout.activity_main)
         val lastBottomNavTab = sharedPreferencesManager.getLastSelectedTab()
-        if (lastBottomNavTab != 0) {
-            binding.bottomNavigation.selectedItemId = lastBottomNavTab
-            navigateToFragment(lastBottomNavTab)
-        }
+        binding.bottomNavigation.selectedItemId = if (lastBottomNavTab == 0) R.id.my_agenda else lastBottomNavTab
+        navigateToFragment(binding.bottomNavigation.selectedItemId)
+
         binding.bottomNavigation.setOnNavigationItemSelectedListener { navigationItem ->
             navigateToFragment(navigationItem.itemId)
             sharedPreferencesManager.setLastSelectedTab(navigationItem.itemId)
