@@ -1,9 +1,22 @@
 <resources>
+    <!-- General -->
     <string name="app_name">Droidcon Berlin 2017</string>
+    
+    <!-- My Agenda -->
     <string name="my_agenda">My Agenda</string>
-    <string name="schedule">Schedule</string>
-    <string name="settings">Settings</string>
-    <string name="content_desc_save_session">Save session</string>
     <string name="undo">Undo</string>
     <string name="session_removed">Session removed</string>
+
+    <!-- Schedule -->
+    <string name="schedule">Schedule</string>
+    <string name="content_desc_save_session">Save session</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="droidcon">Droidcon</string>
+    <string name="code_of_conduct">Code of conduct</string>
+    <string name="venue">Venue</string>
+    <string name="about_the_app">About the app</string>
+    <string name="view_on_git_hub">View on GitHub</string>
+    <string name="share">Share</string>
 </resources>

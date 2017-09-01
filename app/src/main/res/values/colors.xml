@@ -5,4 +5,5 @@
     <color name="accent">#ff3d00</color>
     <color name="icon_background">#212121</color>
     <color name="header_background">#EEEEEE</color>
+    <color name="divider">?android:attr/dividerVertical</color>
 </resources>

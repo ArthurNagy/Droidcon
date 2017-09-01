@@ -21,9 +21,9 @@
         android:background="?attr/selectableItemBackground"
         android:orientation="vertical"
         android:paddingBottom="@dimen/content_padding"
-        android:paddingEnd="@dimen/large_content_padding"
-        android:paddingStart="@dimen/large_content_padding"
-        android:paddingTop="@dimen/large_content_padding">
+        android:paddingEnd="@dimen/large_padding"
+        android:paddingStart="@dimen/large_padding"
+        android:paddingTop="@dimen/large_padding">
 
         <TextView
             android:layout_width="match_parent"

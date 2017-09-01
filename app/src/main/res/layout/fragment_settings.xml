@@ -27,6 +27,60 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/SettingsHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_header_height"
+                    android:text="@string/droidcon" />
+
+                <TextView
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_item_height"
+                    android:text="@string/code_of_conduct" />
+
+                <include layout="@layout/item_divider"/>
+
+                <TextView
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_item_height"
+                    android:text="@string/venue" />
+
+                <TextView
+                    style="@style/SettingsHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_header_height"
+                    android:text="@string/about_the_app" />
+
+                <TextView
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_item_height"
+                    android:text="@string/view_on_git_hub" />
+
+                <include layout="@layout/item_divider"/>
+
+                <TextView
+                    style="@style/SettingsItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_item_height"
+                    android:text="@string/share" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </android.support.design.widget.CoordinatorLayout>
 
 </layout>

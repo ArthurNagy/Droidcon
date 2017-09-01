@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:paddingBottom="@dimen/content_padding"
-        android:paddingStart="@dimen/large_content_padding"
-        android:paddingTop="@dimen/large_content_padding">
+        android:paddingStart="@dimen/large_padding"
+        android:paddingTop="@dimen/large_padding">
 
         <TextView
             android:id="@+id/title"
@@ -60,7 +60,7 @@
             android:layout_below="@id/short_info"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/content_desc_save_session"
-            android:padding="@dimen/large_content_padding"
+            android:padding="@dimen/large_padding"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
             app:srcCompat="@drawable/ic_add_box_24dp" />
 

@@ -3,16 +3,31 @@
 
     <!-- TODO: use custom fonts -->
     <style name="SessionTitleTextAppearance" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_title</item>
     </style>
 
     <style name="SessionTitleTextAppearance.Italic" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_title</item>
         <item name="android:textStyle">italic</item>
     </style>
 
     <style name="SessionShortInfoTextAppearance" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="SettingsHeader" parent="SettingsItem">
+        <item name="android:clickable">false</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">@dimen/content_padding</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="SettingsItem">
+        <item name="android:paddingStart">@dimen/first_keyline</item>
+        <item name="android:paddingEnd">@dimen/large_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
 </resources>
