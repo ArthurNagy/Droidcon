@@ -41,8 +41,8 @@ class MyAgendaFragment : DroidconFragment() {
         })
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?)
-                    = if (viewModel.adapter.canRemoveItem()) super.getSwipeDirs(recyclerView, viewHolder) else 0
+            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder)
+                    = if (viewModel.adapter.canRemoveItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))) super.getSwipeDirs(recyclerView, viewHolder) else 0
 
 
             override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?) = false

@@ -25,6 +25,8 @@ data class Session(
     }
 
     companion object {
-        const val INTERMISSION = "_intermission"
+        private const val INTERMISSION = "_intermission"
+
+        fun isIntermission(session: Session?) = session?.id?.contains(Session.INTERMISSION) ?: true
     }
 }
