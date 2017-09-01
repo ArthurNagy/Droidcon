@@ -24,6 +24,7 @@
     </style>
 
     <style name="SettingsItem">
+        <item name="android:clickable">true</item>
         <item name="android:paddingStart">@dimen/first_keyline</item>
         <item name="android:paddingEnd">@dimen/large_padding</item>
         <item name="android:gravity">center_vertical</item>
