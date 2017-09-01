@@ -7,7 +7,7 @@ import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaViewModel
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerViewModel
 import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleViewModel
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailViewModel
-import com.arthurnagy.droidconberlin.feature.settings.SettingsViewModel
+import com.arthurnagy.droidconberlin.feature.info.InfoViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,9 +31,9 @@ abstract class ViewModelModule {
     abstract fun bindScheduleViewModel(scheduleViewModel: ScheduleViewModel): ViewModel
 
     @Binds
-    @ViewModelKey(SettingsViewModel::class)
+    @ViewModelKey(InfoViewModel::class)
     @IntoMap
-    abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
+    abstract fun bindSettingsViewModel(infoViewModel: InfoViewModel): ViewModel
 
     @Binds
     @ViewModelKey(SessionDetailViewModel::class)

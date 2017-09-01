@@ -18,8 +18,8 @@
     <dimen name="header_height">@dimen/touch_area</dimen>
     <dimen name="header_elevation">4dp</dimen>
 
-    <!-- Settings -->
-    <dimen name="settings_header_height">36dp</dimen>
-    <dimen name="settings_item_height">@dimen/touch_area</dimen>
+    <!-- Info -->
+    <dimen name="info_header_height">36dp</dimen>
+    <dimen name="info_item_height">@dimen/touch_area</dimen>
 
 </resources>

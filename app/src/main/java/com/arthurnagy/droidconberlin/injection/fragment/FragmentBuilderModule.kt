@@ -3,7 +3,7 @@ package com.arthurnagy.droidconberlin.injection.fragment
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
 import com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleFragment
-import com.arthurnagy.droidconberlin.feature.settings.SettingsFragment
+import com.arthurnagy.droidconberlin.feature.info.InfoFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -21,6 +21,6 @@ abstract class FragmentBuilderModule {
     abstract fun contributeScheduleFragment(): ScheduleFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeSettingsFragment(): SettingsFragment
+    abstract fun contributeSettingsFragment(): InfoFragment
 
 }
