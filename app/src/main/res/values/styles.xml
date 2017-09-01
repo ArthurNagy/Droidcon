@@ -4,9 +4,11 @@
     <!-- TODO: use custom fonts -->
     <style name="SessionTitleTextAppearance" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-black</item>
     </style>
 
-    <style name="SessionTitleTextAppearance.Italic" parent="@style/TextAppearance.AppCompat">
+    <style name="SessionTitleTextAppearanceItalic" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_title</item>
         <item name="android:textStyle">italic</item>
     </style>

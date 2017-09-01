@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SessionTitleTextAppearance" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+</resources>

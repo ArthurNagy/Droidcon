@@ -12,6 +12,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.arthurnagy.droidconberlin.R" />
+
     </data>
 
 
@@ -29,8 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewModel.scheduleSession.title}"
-            android:textAppearance="@style/SessionTitleTextAppearance"
-            android:textStyle="@{viewModel.intermissionFlag ? 2 : 1}"
+            android:textAppearance="@{viewModel.intermissionFlag ? R.style.SessionTitleTextAppearanceItalic : R.style.SessionTitleTextAppearance}"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 
         <TextView
