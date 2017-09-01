@@ -34,6 +34,5 @@ class MyAgendaItemViewModel : DroidconViewModel() {
     companion object {
         private const val PROPERTY_SESSION = "scheduleSession"
         private const val TIME_PATTERN = "hh:mm a"
-
     }
 }

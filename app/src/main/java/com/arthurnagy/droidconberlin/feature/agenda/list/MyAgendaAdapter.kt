@@ -56,14 +56,12 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
     fun removeItemToBeRemoved() {
         itemToBeRemoved?.let {
             //TODO: delete item from list of saved sessions
-            Log.d("DEBUG", "Permanently delete ${itemToBeRemoved?.title}")
             itemToBeRemoved = null
         }
     }
 
     fun undoItemRemoval() {
         itemToBeRemoved?.let {
-            Log.d("DEBUG", "Undo deleting ${itemToBeRemoved?.title}")
             items.add(positionOfItemToBeRemoved, it)
             notifyItemInserted(positionOfItemToBeRemoved)
             itemToBeRemoved = null

@@ -49,13 +49,12 @@ class MyAgendaFragment : DroidconFragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.adapter.removeItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))
-                snackbar = Snackbar.make(binding.root, "The repository needs to be updated", Snackbar.LENGTH_LONG)
+                snackbar = Snackbar.make(binding.root, R.string.session_removed, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo) {
                             viewModel.adapter.undoItemRemoval()
                             binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)
                         }.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     override fun onDismissed(snackbar: Snackbar, @BaseTransientBottomBar.BaseCallback.DismissEvent event: Int) {
-                        //TODO: update repository from the adapter
                         viewModel.adapter.removeItemToBeRemoved()
                     }
                 })
