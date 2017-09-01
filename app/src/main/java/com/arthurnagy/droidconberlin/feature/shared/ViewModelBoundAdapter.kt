@@ -13,7 +13,7 @@ import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 
 abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewModel> : RecyclerView.Adapter<ViewModelBoundAdapter.BindingViewHolder<VB, VM>>() {
 
-    private var recyclerView: RecyclerView? = null
+    protected var recyclerView: RecyclerView? = null
     private var itemClickListener: (position: Int) -> Unit = { _ -> }
     private val rebindCallback: OnRebindCallback<VB>
 
@@ -29,7 +29,7 @@ abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewMode
                         false
                     }
                 }
-            } ?: true
+            } != false
 
         }
     }
@@ -82,7 +82,6 @@ abstract class ViewModelBoundAdapter<VB : ViewDataBinding, VM : DroidconViewMode
     }
 
     interface AdapterItemClickListener {
-
         fun onItemClicked(position: Int)
     }
 

@@ -34,6 +34,7 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
+        binding.recyclerView.adapter = viewModel.adapter
         binding.recyclerView.addItemDecoration(object : StickyHeaderItemDecoration(context) {
             override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
 
@@ -55,6 +56,7 @@ class MyAgendaFragment : DroidconFragment() {
                             binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)
                         }.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     override fun onDismissed(snackbar: Snackbar, @BaseTransientBottomBar.BaseCallback.DismissEvent event: Int) {
+                        //TODO: update repository and then the adapter
                         viewModel.adapter.removeItemToBeRemoved()
                     }
                 })

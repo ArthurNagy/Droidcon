@@ -5,6 +5,7 @@ import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
+import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.plusAssign
 import com.arthurnagy.droidconberlin.repository.SessionRepository
@@ -20,6 +21,15 @@ class MyAgendaViewModel @Inject constructor(
         private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
     private val disposables = CompositeDisposable()
     val adapter = MyAgendaAdapter()
+
+    init {
+        adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
+            override fun onItemClicked(position: Int) {
+                sessionClick = adapter.getItem(position)
+            }
+        })
+    }
+
     @Bindable
     var swipeRefreshState = false
         set(value) {
@@ -61,10 +71,6 @@ class MyAgendaViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
-    }
-
-    fun onAdapterItemClicked(position: Int) {
-        sessionClick = adapter.getItem(position)
     }
 
     fun isHeaderItem(position: Int): Boolean = when (position) {

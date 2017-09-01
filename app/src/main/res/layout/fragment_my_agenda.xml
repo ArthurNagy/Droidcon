@@ -38,8 +38,6 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:adapterItemClickListener="@{(position) -> viewModel.onAdapterItemClicked(position)}"
-                app:adapter="@{viewModel.adapter}"
                 app:layoutManager="LinearLayoutManager" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
