@@ -1,5 +1,6 @@
 package com.arthurnagy.droidconberlin.feature.info
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Bundle
@@ -31,12 +32,23 @@ class InfoFragment : DroidconFragment() {
 
         binding.codeOfConduct.setOnClickListener { openUrl("https://droidcon.de/en/berlin/17/code-conduct") }
         binding.venue.setOnClickListener { openUrl("https://droidcon.de/en/berlin/17/venue") }
-        binding.viewOnGitHub.setOnClickListener { openUrl("https://github.com/ArthurNagy/DroidconBerlin") }
-        binding.share.setOnClickListener {}
+        binding.viewOnGitHub.setOnClickListener { openUrl(GIT_HUB_URL) }
+        binding.share.setOnClickListener {
+            startActivity(Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, GIT_HUB_URL)
+            }, context.getString(R.string.share_via)))
+
+        }
     }
 
     private fun openUrl(url: String) = CustomTabsIntent.Builder()
             .setToolbarColor(context.color(R.color.primary))
             .setShowTitle(true)
             .build().launchUrl(context, Uri.parse(url))
+
+    companion object {
+        private const val GIT_HUB_URL = "https://github.com/ArthurNagy/DroidconBerlin"
+    }
 }
