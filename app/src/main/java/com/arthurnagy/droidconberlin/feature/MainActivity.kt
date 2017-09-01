@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.arthurnagy.droidconberlin.MainBinding
 import com.arthurnagy.droidconberlin.R
+import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidconberlin.feature.schedule.SchedulePagerFragment
 import com.arthurnagy.droidconberlin.feature.settings.SettingsFragment
@@ -19,22 +20,21 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var sharedPreferencesManager: SharedPreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<MainBinding>(this, R.layout.activity_main)
-        binding.bottomNavigation.selectedItemId = R.id.my_agenda
-        supportFragmentManager.replace(R.id.fragment_container, MyAgendaFragment())
+        val lastBottomNavTab = sharedPreferencesManager.getLastSelectedTab()
+        if (lastBottomNavTab != 0) {
+            binding.bottomNavigation.selectedItemId = lastBottomNavTab
+            navigateToFragment(lastBottomNavTab)
+        }
         binding.bottomNavigation.setOnNavigationItemSelectedListener { navigationItem ->
-            supportFragmentManager.replace(R.id.fragment_container, when (navigationItem.itemId) {
-                R.id.my_agenda -> MyAgendaFragment()
-                R.id.schedule -> SchedulePagerFragment()
-                R.id.settings -> SettingsFragment()
-                else -> MyAgendaFragment()
-            })
+            navigateToFragment(navigationItem.itemId)
+            sharedPreferencesManager.setLastSelectedTab(navigationItem.itemId)
             true
         }
         binding.bottomNavigation.setOnNavigationItemReselectedListener {
@@ -44,4 +44,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    private fun navigateToFragment(bottomNavigationTabId: Int) {
+        supportFragmentManager.replace(R.id.fragment_container, when (bottomNavigationTabId) {
+            R.id.my_agenda -> MyAgendaFragment()
+            R.id.schedule -> SchedulePagerFragment()
+            R.id.settings -> SettingsFragment()
+            else -> MyAgendaFragment()
+        })
+    }
 }

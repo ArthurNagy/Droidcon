@@ -42,15 +42,15 @@ class MyAgendaFragment : DroidconFragment() {
         })
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?)
-                    = if (viewModel.adapter.canRemoveItem()) super.getSwipeDirs(recyclerView, viewHolder) else 0
+            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder)
+                    = if (viewModel.adapter.canRemoveItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))) super.getSwipeDirs(recyclerView, viewHolder) else 0
 
 
             override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?) = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.adapter.removeItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))
-                snackbar = Snackbar.make(binding.root, "The repository needs to be updated", Snackbar.LENGTH_LONG)
+                snackbar = Snackbar.make(binding.root, R.string.session_removed, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo) {
                             viewModel.adapter.undoItemRemoval()
                             binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)

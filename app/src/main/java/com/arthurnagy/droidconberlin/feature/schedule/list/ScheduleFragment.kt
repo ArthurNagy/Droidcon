@@ -11,6 +11,7 @@ import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.ScheduleBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
+import com.arthurnagy.droidconberlin.color
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
 
@@ -38,7 +39,8 @@ class ScheduleFragment : DroidconFragment() {
 
             override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
         })
-//        binding.scheduleRefreshLayout.setColorSchemeColors()
+
+        binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
         viewModel.load()
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

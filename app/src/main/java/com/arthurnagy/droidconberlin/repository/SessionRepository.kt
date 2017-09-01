@@ -6,6 +6,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
+// TODO implement local database source for saving data and my agenda sessions
 @Singleton
 class SessionRepository @Inject constructor(
         private val memorySource: SessionMemorySource,

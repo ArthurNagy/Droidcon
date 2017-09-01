@@ -39,7 +39,7 @@ class ScheduleItemViewModel : DroidconViewModel() {
     }
 
     @Bindable(PROPERTY_SESSION)
-    fun getIntermissionFlag() = scheduleSession?.id?.contains(Session.INTERMISSION)
+    fun getIntermissionFlag() = Session.isIntermission(scheduleSession)
 
     companion object {
         private const val PROPERTY_SESSION = "scheduleSession"

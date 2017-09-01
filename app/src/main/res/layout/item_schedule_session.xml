@@ -29,7 +29,7 @@
             android:paddingEnd="@dimen/content_padding"
             android:text="@{viewModel.scheduleSession.title}"
             android:textAppearance="@style/SessionTitleTextAppearance"
-            android:textStyle="@{viewModel.intermissionFlag ? 2 : 0}"
+            android:textStyle="@{viewModel.intermissionFlag ? 2 : 1}"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 
         <TextView
@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/title"
-            android:layout_marginBottom="@dimen/content_padding"
             android:paddingTop="@dimen/small_padding"
             android:text="@{viewModel.shortInfo}"
             android:textAppearance="@style/SessionShortInfoTextAppearance"
@@ -49,9 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/short_info"
+            android:paddingTop="@dimen/content_padding"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
-            app:terms="@{viewModel.scheduleSession.terms}"
-            tools:visibility="gone" />
+            app:terms="@{viewModel.scheduleSession.terms}" />
 
         <ImageView
             android:id="@+id/session_saved"
@@ -63,8 +62,7 @@
             android:contentDescription="@string/content_desc_save_session"
             android:padding="@dimen/large_content_padding"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
-            app:srcCompat="@drawable/ic_add_box_24dp"
-            tools:visibility="gone" />
+            app:srcCompat="@drawable/ic_add_box_24dp" />
 
     </RelativeLayout>
 

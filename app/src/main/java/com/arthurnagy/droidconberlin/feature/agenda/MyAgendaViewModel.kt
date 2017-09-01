@@ -2,6 +2,7 @@ package com.arthurnagy.droidconberlin.feature.agenda
 
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
+import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
@@ -16,7 +17,8 @@ import java.util.*
 import javax.inject.Inject
 
 class MyAgendaViewModel @Inject constructor(
-        private val sessionRepository: SessionRepository) : DroidconViewModel() {
+        private val sessionRepository: SessionRepository,
+        private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
     private val disposables = CompositeDisposable()
     val adapter = MyAgendaAdapter()
 
@@ -29,6 +31,12 @@ class MyAgendaViewModel @Inject constructor(
     }
 
     @Bindable
+    var swipeRefreshState = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.swipeRefreshState)
+        }
+    @Bindable
     var sessionClick: Session? = null
         set(value) {
             field = value
@@ -40,16 +48,23 @@ class MyAgendaViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
-                    adapter.replace(sessions.sortedWith(compareBy { it.startDate }))
+                    val savedSessions = sharedPreferencesManager.getSavedSessionIds()
+                    val mySessions = sessions.filter {
+                        Session.isIntermission(it) || savedSessions.contains(it.id)
+                    }
+                    adapter.replace(mySessions.sortedWith(compareBy { it.startDate }))
                 }
     }
 
     fun load() {
+        swipeRefreshState = true
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, { error ->
-                    println(error.message)
+                .subscribe({
+                    swipeRefreshState = false
+                }, {
+                    swipeRefreshState = false
                 })
     }
 

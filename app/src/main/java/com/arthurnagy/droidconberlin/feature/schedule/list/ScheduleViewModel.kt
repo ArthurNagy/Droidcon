@@ -25,6 +25,12 @@ class ScheduleViewModel @Inject constructor(
             notifyPropertyChanged(BR.sessionClick)
         }
     private var scheduleDateCalendar: Calendar = Calendar.getInstance()
+    @Bindable
+    var swipeRefreshState = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.swipeRefreshState)
+        }
 
     init {
         adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
@@ -59,11 +65,14 @@ class ScheduleViewModel @Inject constructor(
     }
 
     fun load() {
+        swipeRefreshState = true
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, { error ->
-                    println(error.message)
+                .subscribe({
+                    swipeRefreshState = false
+                }, {
+                    swipeRefreshState = false
                 })
     }
 

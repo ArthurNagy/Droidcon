@@ -44,7 +44,7 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
 
     fun getItem(position: Int) = if (position < 0) itemToBeRemoved!! else items[position]
 
-    fun canRemoveItem() = itemToBeRemoved == null
+    fun canRemoveItem(position: Int) = itemToBeRemoved == null && !Session.isIntermission(items[position])
 
     fun removeItem(position: Int) {
         positionOfItemToBeRemoved = position
@@ -56,14 +56,12 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
     fun removeItemToBeRemoved() {
         itemToBeRemoved?.let {
             //TODO: delete item from list of saved sessions
-            Log.d("DEBUG","Permanently delete ${itemToBeRemoved?.title}")
             itemToBeRemoved = null
         }
     }
 
     fun undoItemRemoval() {
         itemToBeRemoved?.let {
-            Log.d("DEBUG","Undo deleting ${itemToBeRemoved?.title}")
             items.add(positionOfItemToBeRemoved, it)
             notifyItemInserted(positionOfItemToBeRemoved)
             itemToBeRemoved = null
