@@ -1,7 +1,5 @@
 package com.arthurnagy.droidconberlin.feature.agenda.list
 
-import android.support.v7.util.DiffUtil
-import android.util.Log
 import com.arthurnagy.droidconberlin.MyAgendaSessionItemBinding
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
@@ -14,32 +12,35 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
     var positionOfItemToBeRemoved = 0
 
     fun replace(newItems: List<Session>) {
-        if (items.isEmpty()) {
-            items.addAll(newItems)
-            notifyDataSetChanged()
-        } else {
-            val oldItems = items.toList()
-            items.clear()
-            items.addAll(newItems)
-            val result =
-                    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-
-                        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int)
-                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
-
-                        override fun getOldListSize() = oldItems.size
-
-                        override fun getNewListSize() = newItems.size
-
-                        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int)
-                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
-                                && oldItems[oldItemPosition].title == newItems[newItemPosition].title
-                                && oldItems[oldItemPosition].description == newItems[newItemPosition].description
-                                && oldItems[oldItemPosition].startDate == newItems[newItemPosition].startDate
-                                && oldItems[oldItemPosition].endDate == newItems[newItemPosition].endDate
-                    })
-            result.dispatchUpdatesTo(this)
-        }
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+//        if (items.isEmpty()) {
+//            items.addAll(newItems)
+//            notifyDataSetChanged()
+//        } else {
+//            val oldItems = items.toList()
+//            items.clear()
+//            items.addAll(newItems)
+//            val result =
+//                    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+//
+//                        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int)
+//                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
+//
+//                        override fun getOldListSize() = oldItems.size
+//
+//                        override fun getNewListSize() = newItems.size
+//
+//                        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int)
+//                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
+//                                && oldItems[oldItemPosition].title == newItems[newItemPosition].title
+//                                && oldItems[oldItemPosition].description == newItems[newItemPosition].description
+//                                && oldItems[oldItemPosition].startDate == newItems[newItemPosition].startDate
+//                                && oldItems[oldItemPosition].endDate == newItems[newItemPosition].endDate
+//                    })
+//            result.dispatchUpdatesTo(this)
+//        }
     }
 
     fun getItem(position: Int) = if (position < 0) itemToBeRemoved!! else items[position]
@@ -53,9 +54,9 @@ class MyAgendaAdapter : ViewModelBoundAdapter<MyAgendaSessionItemBinding, MyAgen
         notifyItemRemoved(position)
     }
 
-    fun removeItemToBeRemoved() {
+    fun removeItemToBeRemoved(doOnRemove: (item: Session) -> Unit) {
         itemToBeRemoved?.let {
-            //TODO: delete item from list of saved sessions
+            doOnRemove.invoke(it)
             itemToBeRemoved = null
         }
     }

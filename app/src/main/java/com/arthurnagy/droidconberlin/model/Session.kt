@@ -12,7 +12,8 @@ data class Session(
         @SerializedName("terms") val terms: List<Term>?,
         @SerializedName("start") val startDate: Date,
         @SerializedName("end") val endDate: Date,
-        @SerializedName("description") val description: String?) {
+        @SerializedName("description") val description: String?,
+        var isSaved: Boolean = false) {
     enum class Room {
         @SerializedName("3518")
         LAMARR,
@@ -27,6 +28,6 @@ data class Session(
     companion object {
         private const val INTERMISSION = "_intermission"
 
-        fun isIntermission(session: Session?) = session?.id?.contains(Session.INTERMISSION) ?: true
+        fun isIntermission(session: Session?) = session?.id?.contains(Session.INTERMISSION) != false
     }
 }

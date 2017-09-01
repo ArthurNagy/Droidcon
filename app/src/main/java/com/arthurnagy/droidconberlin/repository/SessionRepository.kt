@@ -33,12 +33,8 @@ class SessionRepository @Inject constructor(
             .firstElement()
             .toObservable()
 
-    override fun delete(key: String): Observable<Boolean> {
-        TODO()
-    }
+    override fun delete(key: String): Observable<Boolean> = memorySource.delete(key)
 
-    override fun save(data: Session): Observable<Session> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun save(data: Session): Observable<Session> = memorySource.save(data)
 
 }

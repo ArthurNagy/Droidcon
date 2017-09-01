@@ -1,6 +1,5 @@
 package com.arthurnagy.droidconberlin.feature.schedule.list
 
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.arthurnagy.droidconberlin.R
@@ -14,32 +13,41 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
     private var itemSavedClickListener: (position: Int) -> Unit = { _ -> }
 
     fun replace(newItems: List<Session>) {
-        if (items.isEmpty()) {
-            items.addAll(newItems)
-            notifyDataSetChanged()
-        } else {
-            val oldItems = items.toList()
-            items.clear()
-            items.addAll(newItems)
-            val result =
-                    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+//        if (items.isEmpty()) {
+//            items.addAll(newItems)
+//            notifyDataSetChanged()
+//        } else {
+//            val oldItems = items.toList()
+//            items.clear()
+//            items.addAll(newItems)
+//            val result =
+//                    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+//
+//                        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int)
+//                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
+//
+//                        override fun getOldListSize() = oldItems.size
+//
+//                        override fun getNewListSize() = newItems.size
+//
+//                        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int)
+//                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
+//                                && oldItems[oldItemPosition].title == newItems[newItemPosition].title
+//                                && oldItems[oldItemPosition].description == newItems[newItemPosition].description
+//                                && oldItems[oldItemPosition].startDate == newItems[newItemPosition].startDate
+//                                && oldItems[oldItemPosition].endDate == newItems[newItemPosition].endDate
+//                                && oldItems[oldItemPosition].isSaved == newItems[newItemPosition].isSaved
+//                    })
+//            result.dispatchUpdatesTo(this)
+//        }
+    }
 
-                        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int)
-                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
-
-                        override fun getOldListSize() = oldItems.size
-
-                        override fun getNewListSize() = newItems.size
-
-                        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int)
-                                = oldItems[oldItemPosition].id == newItems[newItemPosition].id
-                                && oldItems[oldItemPosition].title == newItems[newItemPosition].title
-                                && oldItems[oldItemPosition].description == newItems[newItemPosition].description
-                                && oldItems[oldItemPosition].startDate == newItems[newItemPosition].startDate
-                                && oldItems[oldItemPosition].endDate == newItems[newItemPosition].endDate
-                    })
-            result.dispatchUpdatesTo(this)
-        }
+    fun updateItem(position: Int, session: Session) {
+        items[position] = session
+        notifyItemChanged(position)
     }
 
     fun getItem(position: Int) = items[position]

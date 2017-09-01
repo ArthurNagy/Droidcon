@@ -49,11 +49,18 @@ class MyAgendaViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
                     val savedSessions = sharedPreferencesManager.getSavedSessionIds()
-                    val mySessions = sessions.filter {
-                        Session.isIntermission(it) || savedSessions.contains(it.id)
+                    val mySessions = sessions.map { session ->
+                        if (savedSessions.contains(session.id)) session.isSaved = true
+                        session
+                    }.filter { session ->
+                        Session.isIntermission(session) || session.isSaved
                     }
                     adapter.replace(mySessions.sortedWith(compareBy { it.startDate }))
                 }
+    }
+
+    fun unsubscribe() {
+        disposables.clear()
     }
 
     fun load() {
@@ -66,6 +73,17 @@ class MyAgendaViewModel @Inject constructor(
                 }, {
                     swipeRefreshState = false
                 })
+    }
+
+    fun removeSavedSessionFromAgenda() {
+        adapter.removeItemToBeRemoved(doOnRemove = { session ->
+            session.isSaved = false
+            sharedPreferencesManager.deleteSessionId(session.id)
+            disposables += sessionRepository.save(session)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({}, {})
+        })
     }
 
     override fun onCleared() {
@@ -90,4 +108,5 @@ class MyAgendaViewModel @Inject constructor(
     companion object {
         private const val STICKY_DATE_PATTERN = "MMMM d"
     }
+
 }

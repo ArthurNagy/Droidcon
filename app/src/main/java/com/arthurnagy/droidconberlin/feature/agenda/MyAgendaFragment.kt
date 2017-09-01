@@ -56,8 +56,7 @@ class MyAgendaFragment : DroidconFragment() {
                             binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)
                         }.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     override fun onDismissed(snackbar: Snackbar, @BaseTransientBottomBar.BaseCallback.DismissEvent event: Int) {
-                        //TODO: update repository and then the adapter
-                        viewModel.adapter.removeItemToBeRemoved()
+                        viewModel.removeSavedSessionFromAgenda()
                     }
                 })
                 snackbar?.show()
@@ -72,6 +71,11 @@ class MyAgendaFragment : DroidconFragment() {
                 }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.unsubscribe()
     }
 
     override fun onPause() {

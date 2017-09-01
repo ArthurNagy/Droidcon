@@ -29,6 +29,12 @@ constructor(@AppContext context: Context) {
         put(SAVED_SESSION_IDS, savedSessions.toSet())
     }
 
+    fun deleteSessionId(sessionId: String) {
+        val savedSessions = getStringSet(SAVED_SESSION_IDS).toMutableList()
+        savedSessions.remove(sessionId)
+        put(SAVED_SESSION_IDS, savedSessions.toSet())
+    }
+
     fun getSavedSessionIds(): List<String> {
         return getStringSet(SAVED_SESSION_IDS).toList()
     }

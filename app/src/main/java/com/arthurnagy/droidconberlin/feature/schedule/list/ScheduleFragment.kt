@@ -51,6 +51,11 @@ class ScheduleFragment : DroidconFragment() {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.unsubscribe()
+    }
+
     companion object {
         private val SCHEDULE_DAY_TIMESTAMP = "scheduleDayTimestamp"
         @JvmStatic

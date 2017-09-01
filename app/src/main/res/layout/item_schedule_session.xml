@@ -61,6 +61,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/content_desc_save_session"
             android:padding="@dimen/large_padding"
+            android:src="@{viewModel.savedStateIcon}"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
             app:srcCompat="@drawable/ic_add_box_24dp" />
 
