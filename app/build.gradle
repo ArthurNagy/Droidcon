@@ -11,7 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "String", "DROIDCON_URL", "\"https://droidcon.de\""
@@ -19,7 +19,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
