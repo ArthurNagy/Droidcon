@@ -96,6 +96,7 @@
             android:layout_margin="@dimen/large_padding"
             android:src="@{viewModel.sessionStateIcon}"
             android:tint="@android:color/white"
+            android:onClick="@{(v) -> viewModel.updateSaveState()}"
             app:fabSize="normal"
             app:layout_anchor="@id/content"
             app:layout_anchorGravity="bottom|end"

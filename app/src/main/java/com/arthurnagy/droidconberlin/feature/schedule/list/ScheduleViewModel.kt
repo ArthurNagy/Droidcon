@@ -47,8 +47,7 @@ class ScheduleViewModel @Inject constructor(
             } else {
                 sharedPreferencesManager.deleteSessionId(savedSession.id)
             }
-            val sessionUpdateObservable = sessionRepository.save(savedSession)
-            disposables += sessionUpdateObservable
+            disposables += sessionRepository.save(savedSession)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ session ->

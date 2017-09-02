@@ -65,8 +65,6 @@ class MyAgendaFragment : DroidconFragment() {
         }).attachToRecyclerView(binding.recyclerView)
         binding.refreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
 
-        viewModel.subscribe()
-        viewModel.load()
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 when (propertyId) {
@@ -76,13 +74,15 @@ class MyAgendaFragment : DroidconFragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.unsubscribe()
+    override fun onResume() {
+        super.onResume()
+        viewModel.subscribe()
+        viewModel.load()
     }
 
     override fun onPause() {
         super.onPause()
         snackbar?.dismiss()
+        viewModel.unsubscribe()
     }
 }

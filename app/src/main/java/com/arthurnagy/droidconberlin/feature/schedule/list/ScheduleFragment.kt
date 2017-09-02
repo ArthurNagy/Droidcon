@@ -30,7 +30,6 @@ class ScheduleFragment : DroidconFragment() {
         binding.viewModel = viewModel
 
         viewModel.setScheduleDate(arguments.getLong(SCHEDULE_DAY_TIMESTAMP))
-        viewModel.subscribe()
 
         binding.scheduleRecycler.adapter = viewModel.adapter
         binding.scheduleRecycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
@@ -41,7 +40,6 @@ class ScheduleFragment : DroidconFragment() {
         })
 
         binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
-        viewModel.load()
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 when (propertyId) {
@@ -51,8 +49,14 @@ class ScheduleFragment : DroidconFragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onResume() {
+        super.onResume()
+        viewModel.subscribe()
+        viewModel.load()
+    }
+
+    override fun onPause() {
+        super.onPause()
         viewModel.unsubscribe()
     }
 

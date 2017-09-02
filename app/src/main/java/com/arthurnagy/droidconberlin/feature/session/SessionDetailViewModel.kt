@@ -67,6 +67,18 @@ class SessionDetailViewModel @Inject constructor(
         return R.drawable.ic_add_box_24dp
     }
 
+    fun updateSaveState() {
+        session?.let { session ->
+            session.isSaved = !session.isSaved
+            notifyPropertyChanged(BR.session)
+            disposables += sessionRepository.save(session)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({}, {})
+        }
+
+    }
+
     companion object {
         private const val SESSION = "session"
         private const val END_DATE_PATTERN = "hh:mm a"
