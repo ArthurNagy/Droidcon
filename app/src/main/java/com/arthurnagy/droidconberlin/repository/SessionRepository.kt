@@ -14,19 +14,24 @@ class SessionRepository @Inject constructor(
         private val remoteSource: SessionRemoteSource
 ) : Repository<Session, String>() {
 
-    override fun get(): Observable<List<Session>> {
-        return memorySource.get().flatMap { memorySessions ->
-            if (memorySessions.isEmpty()) {
-                remoteSource.get().flatMap { remoteSessions ->
-                    Observable.fromIterable(remoteSessions)
-                            .flatMap { session -> memorySource.save(session) }
-                            .toList().toObservable()
-                }
-            } else {
-                Observable.just(memorySessions)
-            }.doOnNext(dataStream::accept)
-        }
+    override fun get(): Observable<List<Session>> = memorySource.get().flatMap { memorySessions ->
+        if (memorySessions.isEmpty()) {
+            remoteSource.get().flatMap { remoteSessions ->
+                Observable.fromIterable(remoteSessions)
+                        .flatMap { session -> memorySource.save(session) }
+                        .toList().toObservable()
+            }
+        } else {
+            Observable.just(memorySessions)
+        }.doOnNext(dataStream::accept)
     }
+
+    override fun refresh(): Observable<List<Session>> =
+            remoteSource.get().flatMap { remoteSessions ->
+                Observable.fromIterable(remoteSessions)
+                        .flatMap { session -> memorySource.save(session) }
+                        .toList().toObservable()
+            }.doOnNext(dataStream::accept)
 
     override fun get(key: String): Observable<Session> = Observable.concat(memorySource.get(key),
             remoteSource.get(key))

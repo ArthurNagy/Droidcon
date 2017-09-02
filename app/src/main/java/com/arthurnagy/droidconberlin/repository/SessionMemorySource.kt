@@ -18,6 +18,8 @@ class SessionMemorySource @Inject constructor() : Source<Session, String> {
     override fun get(key: String): Observable<Session>
             = Observable.just(cachedSessions[key])
 
+    override fun refresh(): Observable<List<Session>> = Observable.empty()
+
     override fun delete(key: String): Observable<Boolean>
             = Observable.just(cachedSessions.remove(key) != null)
 

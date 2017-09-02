@@ -13,6 +13,8 @@ class SessionRemoteSource @Inject constructor(
 
     override fun get(): Observable<List<Session>> = apiService.getSchedule().toObservable()
 
+    override fun refresh(): Observable<List<Session>> = apiService.getSchedule().toObservable()
+
     override fun get(key: String): Observable<Session> = Observable.empty()
 
     override fun delete(key: String): Observable<Boolean> = Observable.empty()

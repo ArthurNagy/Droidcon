@@ -27,6 +27,7 @@ class SessionDetailActivity : DroidconActivity() {
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 if (propertyId == BR.session) {
+                    binding.container.removeViews(STATIC_VIEW_COUNT, binding.container.childCount - STATIC_VIEW_COUNT)
                     viewModel.session?.speakers?.forEach { (name, url) ->
                         val speakerBinding = SpeakerBinding.inflate(layoutInflater)
                         speakerBinding.speakerName = name
@@ -63,7 +64,7 @@ class SessionDetailActivity : DroidconActivity() {
 
     companion object {
         private const val SESSION_ID = "sessionId"
-
+        private const val STATIC_VIEW_COUNT = 4
         fun start(context: Context, sessionId: String) {
             context.startActivity(Intent(context, SessionDetailActivity::class.java).putExtra(SESSION_ID, sessionId))
         }

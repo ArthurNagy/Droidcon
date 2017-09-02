@@ -98,6 +98,18 @@ class ScheduleViewModel @Inject constructor(
                 })
     }
 
+    fun refresh() {
+        swipeRefreshState = true
+        disposables += sessionRepository.refresh()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    swipeRefreshState = false
+                }, {
+                    swipeRefreshState = false
+                })
+    }
+
     fun isHeaderItem(position: Int) = when (position) {
         -1, -2 -> false
         0 -> true

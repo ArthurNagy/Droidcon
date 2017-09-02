@@ -73,6 +73,18 @@ class MyAgendaViewModel @Inject constructor(
                 })
     }
 
+    fun refresh() {
+        swipeRefreshState = true
+        disposables += sessionRepository.refresh()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    swipeRefreshState = false
+                }, {
+                    swipeRefreshState = false
+                })
+    }
+
     fun removeSavedSessionFromAgenda() {
         adapter.removeItemToBeRemoved(doOnRemove = { session ->
             session.isSaved = false
