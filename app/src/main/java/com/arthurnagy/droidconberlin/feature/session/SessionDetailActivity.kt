@@ -65,6 +65,13 @@ class SessionDetailActivity : DroidconActivity() {
     companion object {
         private const val SESSION_ID = "sessionId"
         private const val STATIC_VIEW_COUNT = 4
+
+        @JvmStatic
+        fun getStarterIntent(context: Context, sessionId: String): Intent {
+            return Intent(context, SessionDetailActivity::class.java).putExtra(SESSION_ID, sessionId)
+        }
+
+        @JvmStatic
         fun start(context: Context, sessionId: String) {
             context.startActivity(Intent(context, SessionDetailActivity::class.java).putExtra(SESSION_ID, sessionId))
         }

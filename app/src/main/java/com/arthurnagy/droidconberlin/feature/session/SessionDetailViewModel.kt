@@ -69,7 +69,12 @@ class SessionDetailViewModel @Inject constructor(
 
     fun updateSaveState() {
         session?.let { session ->
-            session.isSaved = !session.isSaved
+            session.apply { isSaved = !isSaved }
+            if (session.isSaved) {
+                sharedPreferencesManager.saveSession(session)
+            } else {
+                sharedPreferencesManager.deleteSessionId(session.id)
+            }
             notifyPropertyChanged(BR.session)
             disposables += sessionRepository.save(session)
                     .subscribeOn(Schedulers.io())

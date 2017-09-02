@@ -43,7 +43,7 @@ class ScheduleViewModel @Inject constructor(
         adapter.setItemSavedClickListener { position ->
             val savedSession = adapter.getItem(position).apply { isSaved = !isSaved }
             if (savedSession.isSaved) {
-                sharedPreferencesManager.saveSessionId(savedSession.id)
+                sharedPreferencesManager.saveSession(savedSession)
             } else {
                 sharedPreferencesManager.deleteSessionId(savedSession.id)
             }

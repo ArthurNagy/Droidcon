@@ -2,8 +2,12 @@ package com.arthurnagy.droidconberlin
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.preference.PreferenceManager
 import com.arthurnagy.droidconberlin.injection.app.AppContext
+import com.arthurnagy.droidconberlin.model.Session
+import com.firebase.jobdispatcher.*
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +16,7 @@ class SharedPreferencesManager @Inject
 constructor(@AppContext context: Context) {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val jobDispatcher: FirebaseJobDispatcher = FirebaseJobDispatcher(GooglePlayDriver(context))
 
     fun getLastSelectedTab() = getInt(LAST_SELECTED_TAB, 0)
 
@@ -23,16 +28,28 @@ constructor(@AppContext context: Context) {
         put(SAVED_SESSION_IDS, sessionIds.toSet())
     }
 
-    fun saveSessionId(sessionId: String) {
+    fun saveSession(session: Session) {
         val savedSessions = getStringSet(SAVED_SESSION_IDS).toMutableList()
-        savedSessions.add(sessionId)
+        savedSessions.add(session.id)
         put(SAVED_SESSION_IDS, savedSessions.toSet())
+        val secondsUntilDispatch = Calendar.getInstance().apply { time = Date(session.startDate.time - System.currentTimeMillis()) }[Calendar.SECOND]
+        val sessionIdExtra = Bundle()
+        jobDispatcher.schedule(jobDispatcher.newJobBuilder()
+                .setService(SessionJobService::class.java)
+                .setTag(session.id)
+                .setTrigger(Trigger.executionWindow(secondsUntilDispatch, secondsUntilDispatch))
+                .setReplaceCurrent(true)
+                .setLifetime(Lifetime.FOREVER)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setExtras(sessionIdExtra)
+                .build())
     }
 
     fun deleteSessionId(sessionId: String) {
         val savedSessions = getStringSet(SAVED_SESSION_IDS).toMutableList()
         savedSessions.remove(sessionId)
         put(SAVED_SESSION_IDS, savedSessions.toSet())
+        jobDispatcher.cancel(sessionId)
     }
 
     fun getSavedSessionIds(): List<String> {
