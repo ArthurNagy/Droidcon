@@ -46,11 +46,7 @@ class MyAgendaViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
-                    val savedSessions = sharedPreferencesManager.getSavedSessionIds()
-                    val mySessions = sessions.map { session ->
-                        if (savedSessions.contains(session.id)) session.isSaved = true
-                        session
-                    }.filter { session ->
+                    val mySessions = sessions.filter { session ->
                         Session.isIntermission(session) || session.isSaved
                     }
                     adapter.replace(mySessions.sortedWith(compareBy { it.startDate }))

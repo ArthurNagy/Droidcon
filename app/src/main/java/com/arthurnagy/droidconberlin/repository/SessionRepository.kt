@@ -1,5 +1,6 @@
 package com.arthurnagy.droidconberlin.repository
 
+import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.repository.Repository
 import com.arthurnagy.droidconberlin.model.Session
 import io.reactivex.Observable
@@ -11,27 +12,43 @@ import javax.inject.Singleton
 @Singleton
 class SessionRepository @Inject constructor(
         private val memorySource: SessionMemorySource,
-        private val remoteSource: SessionRemoteSource
+        private val remoteSource: SessionRemoteSource,
+        private val sharedPreferencesManager: SharedPreferencesManager
 ) : Repository<Session, String>() {
 
-    override fun get(): Observable<List<Session>> = memorySource.get().flatMap { memorySessions ->
-        if (memorySessions.isEmpty()) {
-            remoteSource.get().flatMap { remoteSessions ->
-                Observable.fromIterable(remoteSessions)
-                        .flatMap { session -> memorySource.save(session) }
-                        .toList().toObservable()
-            }
-        } else {
-            Observable.just(memorySessions)
-        }.doOnNext(dataStream::accept)
+    override fun get(): Observable<List<Session>> {
+        val savedSessions = sharedPreferencesManager.getSavedSessionIds()
+        return memorySource.get().flatMap { memorySessions ->
+            if (memorySessions.isEmpty()) {
+                remoteSource.get().flatMap { remoteSessions ->
+                    Observable.fromIterable(remoteSessions)
+                            .flatMap { session -> memorySource.save(session) }
+                            .toList().toObservable()
+                }
+            } else {
+                Observable.just(memorySessions)
+            }.map { sessions ->
+                sessions.map { session ->
+                    if (savedSessions.contains(session.id)) session.isSaved = true
+                    session
+                }
+            }.doOnNext(dataStream::accept)
+        }
     }
 
-    override fun refresh(): Observable<List<Session>> =
-            remoteSource.get().flatMap { remoteSessions ->
-                Observable.fromIterable(remoteSessions)
-                        .flatMap { session -> memorySource.save(session) }
-                        .toList().toObservable()
-            }.doOnNext(dataStream::accept)
+    override fun refresh(): Observable<List<Session>> {
+        val savedSessions = sharedPreferencesManager.getSavedSessionIds()
+        return remoteSource.get().flatMap { remoteSessions ->
+            Observable.fromIterable(remoteSessions)
+                    .flatMap { session -> memorySource.save(session) }
+                    .toList().toObservable()
+        }.map { sessions ->
+            sessions.map { session ->
+                if (savedSessions.contains(session.id)) session.isSaved = true
+                session
+            }
+        }.doOnNext(dataStream::accept)
+    }
 
     override fun get(key: String): Observable<Session> = Observable.concat(memorySource.get(key),
             remoteSource.get(key))

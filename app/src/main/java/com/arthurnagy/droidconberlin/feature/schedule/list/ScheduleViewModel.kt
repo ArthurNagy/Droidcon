@@ -69,11 +69,7 @@ class ScheduleViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
                     val sessionCalendar = Calendar.getInstance()
-                    val savedSessions = sharedPreferencesManager.getSavedSessionIds()
-                    adapter.replace(sessions.map { session ->
-                        if (savedSessions.contains(session.id)) session.isSaved = true
-                        session
-                    }.filter { session ->
+                    adapter.replace(sessions.filter { session ->
                         sessionCalendar.time = session.startDate
                         scheduleDateCalendar[Calendar.YEAR] == sessionCalendar[Calendar.YEAR] &&
                                 scheduleDateCalendar[Calendar.MONTH] == sessionCalendar[Calendar.MONTH] &&
