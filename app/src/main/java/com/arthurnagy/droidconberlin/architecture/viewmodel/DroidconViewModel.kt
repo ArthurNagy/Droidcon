@@ -3,8 +3,12 @@ package com.arthurnagy.droidconberlin.architecture.viewmodel
 import android.arch.lifecycle.ViewModel
 import android.databinding.Observable
 import android.databinding.PropertyChangeRegistry
+import android.support.annotation.CallSuper
+import io.reactivex.disposables.CompositeDisposable
 
 open class DroidconViewModel : ViewModel(), Observable {
+
+    protected val disposables = CompositeDisposable()
 
     private val propertyCallbacks by lazy { PropertyChangeRegistry() }
 
@@ -29,4 +33,11 @@ open class DroidconViewModel : ViewModel(), Observable {
      * @param fieldId The generated BR id for the Bindable field.
      */
     fun notifyPropertyChanged(fieldId: Int) = propertyCallbacks.notifyChange(this, fieldId)
+
+    @CallSuper
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
+
 }

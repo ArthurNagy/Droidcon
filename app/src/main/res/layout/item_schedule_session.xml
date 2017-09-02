@@ -66,6 +66,7 @@
             android:padding="@dimen/large_padding"
             android:src="@{viewModel.savedStateIcon}"
             android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
+            android:tint="@{viewModel.scheduleSession.isSaved ? @color/accent : @color/icon_color}"
             app:srcCompat="@drawable/ic_add_box_24dp" />
 
     </RelativeLayout>

@@ -45,7 +45,7 @@ class ScheduleFragment : DroidconFragment() {
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 when (propertyId) {
-                    BR.sessionClick -> startActivity(SessionDetailActivity.getStartIntent(context, viewModel.sessionClick!!.id))
+                    BR.sessionClick -> SessionDetailActivity.start(context, viewModel.sessionClick?.id ?: "")
                 }
             }
         })

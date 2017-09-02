@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--suppress AndroidUnknownAttribute -->
     <data class=".SessionDetailBinding">
@@ -30,18 +31,75 @@
         </android.support.design.widget.AppBarLayout>
 
         <ScrollView
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="@dimen/large_padding"
+            android:paddingStart="@dimen/large_padding"
+            android:paddingEnd="@dimen/large_padding"
+            android:paddingBottom="@dimen/bottom_nav_height"
+            android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:text="@{viewModel.session.title}"
+                    android:textAppearance="@style/SessionTitleTextAppearance"
+                    android:textSize="@dimen/session_title_text_size"
+                    tools:text="Welcome!" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:text="@{viewModel.dateInterval}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="Wed, May 17, 11:00 PM - 12:00 AM" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_padding"
+                    android:text="@{@string/stage(viewModel.session.room)}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:text="LAMMARR stage" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_padding"
+                    android:lineSpacingMultiplier="1.25"
+                    android:text="@{viewModel.sessionDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    tools:text="Bla bla bla bla bla" />
+
+                <com.arthurnagy.droidconberlin.feature.shared.TermsView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:terms="@{viewModel.session.terms}" />
+
             </LinearLayout>
 
         </ScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_padding"
+            android:src="@{viewModel.sessionStateIcon}"
+            android:tint="@android:color/white"
+            app:fabSize="normal"
+            app:layout_anchor="@id/content"
+            app:layout_anchorGravity="bottom|end"
+            tools:src="@drawable/ic_check_box_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 

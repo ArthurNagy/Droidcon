@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--suppress AndroidUnknownAttribute -->
+    <data class=".SpeakerBinding">
+
+        <variable
+            name="speakerName"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/content_padding"
+        android:paddingBottom="@dimen/content_padding">
+
+        <ImageView
+            android:layout_width="@dimen/speaker_icon_size"
+            android:layout_height="@dimen/speaker_icon_size"
+            android:tint="@color/accent"
+            app:srcCompat="@drawable/ic_profile_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/speaker_name_margin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Arthur Nagy"
+            android:text="@{speakerName}" />
+
+    </FrameLayout>
+
+</layout>

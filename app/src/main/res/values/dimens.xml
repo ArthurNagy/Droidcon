@@ -22,4 +22,9 @@
     <dimen name="info_header_height">36dp</dimen>
     <dimen name="info_item_height">@dimen/touch_area</dimen>
 
+    <!--Session detail-->
+    <dimen name="session_title_text_size">24sp</dimen>
+    <dimen name="speaker_icon_size">40dp</dimen>
+    <dimen name="speaker_name_margin">56dp</dimen>
+
 </resources>

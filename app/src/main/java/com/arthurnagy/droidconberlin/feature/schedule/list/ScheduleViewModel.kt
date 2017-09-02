@@ -10,7 +10,6 @@ import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.repository.SessionRepository
 import com.arthurnagy.droidconberlin.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,7 +18,6 @@ import javax.inject.Inject
 class ScheduleViewModel @Inject constructor(
         private val sessionRepository: SessionRepository,
         private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
-    private val disposables = CompositeDisposable()
     val adapter = ScheduleAdapter()
     @Bindable
     var sessionClick: Session? = null
@@ -99,11 +97,6 @@ class ScheduleViewModel @Inject constructor(
                 }, {
                     swipeRefreshState = false
                 })
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposables.clear()
     }
 
     fun isHeaderItem(position: Int) = when (position) {

@@ -39,6 +39,8 @@ constructor(@AppContext context: Context) {
         return getStringSet(SAVED_SESSION_IDS).toList()
     }
 
+    fun isSavedSession(sessionId: String) = getStringSet(SAVED_SESSION_IDS).contains(sessionId)
+
     // Do not expose the methods that read and write primitive values with generalized key values. They should always be
     // private.
 
