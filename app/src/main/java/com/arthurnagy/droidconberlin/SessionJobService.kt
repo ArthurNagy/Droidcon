@@ -21,12 +21,13 @@ import javax.inject.Inject
 class SessionJobService : JobService() {
 
     @Inject lateinit var sessionRepository: SessionRepository
-    private val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private lateinit var notificationManager: NotificationManager
     var disposable: Disposable? = null
 
     override fun onCreate() {
-        super.onCreate()
         AndroidInjection.inject(this)
+        super.onCreate()
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     override fun onStopJob(job: JobParameters?): Boolean {
@@ -41,8 +42,8 @@ class SessionJobService : JobService() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ sessions ->
-                        sessions.filter { (id) -> sessionId == id }
-                        val session = sessions[0]
+                        val filteredSessions = sessions.filter { (id) -> sessionId == id }
+                        val session = filteredSessions[0]
                         @Suppress("DEPRECATION")
                         val builder = (if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1)
                             NotificationCompat.Builder(this, NotificationChannel.DEFAULT_CHANNEL_ID) else
@@ -53,9 +54,9 @@ class SessionJobService : JobService() {
                                 .setContentText(getString(R.string.session_is_about_to_start))
                                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                                 .setStyle(NotificationCompat.BigTextStyle().bigText(getString(R.string.session_notification_message, session.title, session.room.toString())))
-                                .setContentIntent(PendingIntent.getActivity(applicationContext, SESSION_REQ, SessionDetailActivity.getStarterIntent(this, session.id), PendingIntent.FLAG_UPDATE_CURRENT))
+                                .setContentIntent(PendingIntent.getActivity(applicationContext, SESSION_REQ, SessionDetailActivity.getStarterIntent(this, session.id), PendingIntent.FLAG_CANCEL_CURRENT))
 
-                        notificationManager.notify(Integer.getInteger(sessionId), builder.build())
+                        notificationManager.notify(sessionId.toInt(), builder.build())
                     }, {})
         }
         return false

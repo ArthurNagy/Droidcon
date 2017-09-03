@@ -7,7 +7,6 @@ import android.preference.PreferenceManager
 import com.arthurnagy.droidconberlin.injection.app.AppContext
 import com.arthurnagy.droidconberlin.model.Session
 import com.firebase.jobdispatcher.*
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +31,7 @@ constructor(@AppContext context: Context) {
         val savedSessions = getStringSet(SAVED_SESSION_IDS).toMutableList()
         savedSessions.add(session.id)
         put(SAVED_SESSION_IDS, savedSessions.toSet())
-        val secondsUntilDispatch = Calendar.getInstance().apply { time = Date(session.startDate.time - System.currentTimeMillis()) }[Calendar.SECOND]
+        val secondsUntilDispatch = ((session.startDate.time - System.currentTimeMillis()) / 1000 - 600).toInt()
         val sessionIdExtra = Bundle()
         jobDispatcher.schedule(jobDispatcher.newJobBuilder()
                 .setService(SessionJobService::class.java)
