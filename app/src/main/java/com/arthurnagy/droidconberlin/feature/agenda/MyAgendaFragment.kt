@@ -35,43 +35,42 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
-        binding.recyclerView.adapter = viewModel.adapter
-        binding.recyclerView.addItemDecoration(object : StickyHeaderItemDecoration(context) {
-            override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
-
-            override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
-        })
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder)
-                    = if (viewModel.adapter.canRemoveItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))) super.getSwipeDirs(recyclerView, viewHolder) else 0
-
-
-            override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?) = false
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.adapter.removeItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))
-                snackbar = Snackbar.make(binding.root, R.string.session_removed, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.undo) {
-                            viewModel.adapter.undoItemRemoval()
-                            binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)
-                        }.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    override fun onDismissed(snackbar: Snackbar, @BaseTransientBottomBar.BaseCallback.DismissEvent event: Int) {
-                        viewModel.removeSavedSessionFromAgenda()
-                    }
-                })
-                snackbar?.show()
-            }
-        }).attachToRecyclerView(binding.recyclerView)
-        binding.refreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
-
-        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (propertyId) {
-                    BR.sessionClick -> SessionDetailActivity.start(context, viewModel.sessionClick!!.id)
-                }
-            }
-        })
+//        binding.recyclerView.adapter = viewModel.adapter
+//        binding.recyclerView.addItemDecoration(object : StickyHeaderItemDecoration(context) {
+//            override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
+//
+//            override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
+//        })
+//        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+//        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+//            override fun getSwipeDirs(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder)
+//                    = if (viewModel.adapter.canRemoveItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))) super.getSwipeDirs(recyclerView, viewHolder) else 0
+//
+//
+//            override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?) = false
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                viewModel.adapter.removeItem(binding.recyclerView.getChildAdapterPosition(viewHolder.itemView))
+//                snackbar = Snackbar.make(binding.root, R.string.session_removed, Snackbar.LENGTH_LONG).setAction(R.string.undo) {
+//                            viewModel.adapter.undoItemRemoval()
+//                            binding.recyclerView.smoothScrollToPosition(viewModel.adapter.positionOfItemToBeRemoved)
+//                        }.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+//                    override fun onDismissed(snackbar: Snackbar, @BaseTransientBottomBar.BaseCallback.DismissEvent event: Int) {
+//                        viewModel.removeSavedSessionFromAgenda()
+//                    }
+//                })
+//                snackbar?.show()
+//            }
+//        }).attachToRecyclerView(binding.recyclerView)
+//        binding.refreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
+//
+//        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//                when (propertyId) {
+//                    BR.sessionClick -> SessionDetailActivity.start(context, viewModel.sessionClick!!.id)
+//                }
+//            }
+//        })
     }
 
     override fun onResume() {

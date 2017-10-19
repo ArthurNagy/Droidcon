@@ -3,7 +3,6 @@ package com.arthurnagy.droidconberlin.feature.schedule.list
 import android.databinding.Bindable
 import android.util.Log
 import com.arthurnagy.droidconberlin.BR
-import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidconberlin.model.Session
@@ -16,8 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 class ScheduleViewModel @Inject constructor(
-        private val sessionRepository: SessionRepository,
-        private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
+        private val sessionRepository: SessionRepository) : DroidconViewModel() {
     val adapter = ScheduleAdapter()
     @Bindable
     var sessionClick: Session? = null
@@ -43,9 +41,9 @@ class ScheduleViewModel @Inject constructor(
         adapter.setItemSavedClickListener { position ->
             val savedSession = adapter.getItem(position).apply { isSaved = !isSaved }
             if (savedSession.isSaved) {
-                sharedPreferencesManager.saveSession(savedSession)
+                TODO()
             } else {
-                sharedPreferencesManager.deleteSessionId(savedSession.id)
+                TODO()
             }
             disposables += sessionRepository.save(savedSession)
                     .subscribeOn(Schedulers.io())
@@ -99,11 +97,8 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    swipeRefreshState = false
-                }, {
-                    swipeRefreshState = false
-                })
+                .subscribe({ swipeRefreshState = false },
+                        { swipeRefreshState = false })
     }
 
     fun isHeaderItem(position: Int) = when (position) {

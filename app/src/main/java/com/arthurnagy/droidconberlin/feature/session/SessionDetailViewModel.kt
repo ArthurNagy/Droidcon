@@ -5,7 +5,6 @@ import android.support.annotation.DrawableRes
 import android.text.Html
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.R
-import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.repository.SessionRepository
@@ -13,11 +12,11 @@ import com.arthurnagy.droidconberlin.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class SessionDetailViewModel @Inject constructor(
-        private val sessionRepository: SessionRepository,
-        private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
+        private val sessionRepository: SessionRepository) : DroidconViewModel() {
     @Bindable
     var session: Session? = null
         set(value) {
@@ -30,7 +29,6 @@ class SessionDetailViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ session ->
-                    if (sharedPreferencesManager.isSavedSession(session.id)) session.isSaved = true
                     this.session = session
                 }, {
 
@@ -40,7 +38,7 @@ class SessionDetailViewModel @Inject constructor(
     @Bindable(SESSION)
     fun getDateInterval(): String {
         session?.let {
-            return "${SimpleDateFormat(START_DATE_PATTERN).format(it.startDate)} - ${SimpleDateFormat(END_DATE_PATTERN).format(it.endDate)}"
+            return "${SimpleDateFormat(START_DATE_PATTERN, Locale.getDefault()).format(it.startDate)} - ${SimpleDateFormat(END_DATE_PATTERN, Locale.getDefault()).format(it.endDate)}"
         }
         return NA
     }
@@ -71,9 +69,9 @@ class SessionDetailViewModel @Inject constructor(
         session?.let { session ->
             session.apply { isSaved = !isSaved }
             if (session.isSaved) {
-                sharedPreferencesManager.saveSession(session)
+                TODO()
             } else {
-                sharedPreferencesManager.deleteSessionId(session.id)
+                TODO()
             }
             notifyPropertyChanged(BR.session)
             disposables += sessionRepository.save(session)

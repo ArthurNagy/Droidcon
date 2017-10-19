@@ -2,7 +2,6 @@ package com.arthurnagy.droidconberlin.feature.agenda
 
 import android.databinding.Bindable
 import com.arthurnagy.droidconberlin.BR
-import com.arthurnagy.droidconberlin.SharedPreferencesManager
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidconberlin.feature.shared.ViewModelBoundAdapter
@@ -16,8 +15,7 @@ import java.util.*
 import javax.inject.Inject
 
 class MyAgendaViewModel @Inject constructor(
-        private val sessionRepository: SessionRepository,
-        private val sharedPreferencesManager: SharedPreferencesManager) : DroidconViewModel() {
+        private val sessionRepository: SessionRepository) : DroidconViewModel() {
     val adapter = MyAgendaAdapter()
 
     init {
@@ -84,7 +82,6 @@ class MyAgendaViewModel @Inject constructor(
     fun removeSavedSessionFromAgenda() {
         adapter.removeItemToBeRemoved(doOnRemove = { session ->
             session.isSaved = false
-            sharedPreferencesManager.deleteSessionId(session.id)
             disposables += sessionRepository.save(session)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

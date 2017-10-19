@@ -40,7 +40,7 @@ object DroidconApiModule {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://droidcon.de/")
+                .baseUrl(BuildConfig.DROIDCON_URL)
                 .client(okHttpClient)
                 .build()
     }

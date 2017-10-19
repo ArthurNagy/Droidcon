@@ -1,11 +1,13 @@
 package com.arthurnagy.droidconberlin.architecture.repository
 
-import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.Flowable
+import io.reactivex.processors.FlowableProcessor
+import io.reactivex.processors.PublishProcessor
 
 abstract class Repository<DataType, KeyType> : Source<DataType, KeyType> {
 
-    protected val dataStream: PublishRelay<List<DataType>> = PublishRelay.create()
+    protected val dataStream: FlowableProcessor<List<DataType>> = PublishProcessor.create()
 
-    fun stream() = dataStream
+    fun stream(): Flowable<List<DataType>> = dataStream
 
 }
