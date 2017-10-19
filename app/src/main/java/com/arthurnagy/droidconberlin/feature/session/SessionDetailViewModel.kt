@@ -1,6 +1,8 @@
 package com.arthurnagy.droidconberlin.feature.session
 
 import android.databinding.Bindable
+import android.databinding.ObservableField
+import android.databinding.ObservableInt
 import android.support.annotation.DrawableRes
 import android.text.Html
 import com.arthurnagy.droidconberlin.BR
@@ -8,6 +10,7 @@ import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.model.Session
 import com.arthurnagy.droidconberlin.repository.SessionRepository
+import com.arthurnagy.droidconberlin.util.dependsOn
 import com.arthurnagy.droidconberlin.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,63 +20,39 @@ import javax.inject.Inject
 
 class SessionDetailViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
-    @Bindable
-    var session: Session? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.session)
-        }
+    val session = ObservableField<Session>()
+    val sessionDateInterval = ObservableField<String>().dependsOn(session, {
+        "${SimpleDateFormat(START_DATE_PATTERN, Locale.getDefault()).format(it.startDate)} - ${SimpleDateFormat(END_DATE_PATTERN, Locale.getDefault()).format(it.endDate)}"
+    })
+    val sessionDescription = ObservableField<String>().dependsOn(session, {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            @Suppress("DEPRECATION")
+            Html.fromHtml(it.description)
+        }.toString()
+    })
+    val sessionStateIcon = ObservableInt().dependsOn(session, { if (it.isSaved) R.drawable.ic_check_box_24dp else R.drawable.ic_add_box_24dp })
 
     fun setupSession(sessionId: String) {
         disposables += sessionRepository.get(sessionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ session ->
-                    this.session = session
+                    this.session.set(session)
                 }, {
 
                 })
     }
 
-    @Bindable(SESSION)
-    fun getDateInterval(): String {
-        session?.let {
-            return "${SimpleDateFormat(START_DATE_PATTERN, Locale.getDefault()).format(it.startDate)} - ${SimpleDateFormat(END_DATE_PATTERN, Locale.getDefault()).format(it.endDate)}"
-        }
-        return NA
-    }
-
-    @Bindable(SESSION)
-    fun getSessionDescription(): String {
-        session?.let {
-            return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                Html.fromHtml(it.description, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                @Suppress("DEPRECATION")
-                Html.fromHtml(it.description)
-            }.toString()
-        }
-        return NA
-    }
-
-    @Bindable(SESSION)
-    @DrawableRes
-    fun getSessionStateIcon(): Int {
-        session?.let {
-            return if (it.isSaved) R.drawable.ic_check_box_24dp else R.drawable.ic_add_box_24dp
-        }
-        return R.drawable.ic_add_box_24dp
-    }
-
     fun updateSaveState() {
-        session?.let { session ->
+        session.get()?.let { session ->
             session.apply { isSaved = !isSaved }
             if (session.isSaved) {
                 TODO()
             } else {
                 TODO()
             }
-            notifyPropertyChanged(BR.session)
             disposables += sessionRepository.save(session)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

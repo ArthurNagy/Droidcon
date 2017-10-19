@@ -1,6 +1,9 @@
 package com.arthurnagy.droidconberlin.feature.agenda
 
+import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
 import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaAdapter
@@ -17,27 +20,16 @@ import javax.inject.Inject
 class MyAgendaViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
     val adapter = MyAgendaAdapter()
+    val swipeRefreshState = ObservableBoolean()
+    val selectedSession: ObservableField<Session> = ObservableField()
 
     init {
         adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
             override fun onItemClicked(position: Int) {
-                sessionClick = adapter.getItem(position)
+                selectedSession.set(adapter.getItem(position))
             }
         })
     }
-
-    @Bindable
-    var swipeRefreshState = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.swipeRefreshState)
-        }
-    @Bindable
-    var sessionClick: Session? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.sessionClick)
-        }
 
     fun subscribe() {
         disposables += sessionRepository.stream()
@@ -56,26 +48,26 @@ class MyAgendaViewModel @Inject constructor(
     }
 
     fun load() {
-        swipeRefreshState = true
+        swipeRefreshState.set(true)
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    swipeRefreshState = false
+                    swipeRefreshState.set(false)
                 }, {
-                    swipeRefreshState = false
+                    swipeRefreshState.set(false)
                 })
     }
 
     fun refresh() {
-        swipeRefreshState = true
+        swipeRefreshState.set(true)
         disposables += sessionRepository.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    swipeRefreshState = false
+                    swipeRefreshState.set(false)
                 }, {
-                    swipeRefreshState = false
+                    swipeRefreshState.set(false)
                 })
     }
 

@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/small_padding"
-            android:text="@{viewModel.shortInfo}"
+            android:text="@{viewModel.sessionShortInfo}"
             android:textAppearance="@style/SessionShortInfoTextAppearance"
             tools:text="14:00 - 15:30 / LAMARR" />
 

@@ -1,6 +1,10 @@
 package com.arthurnagy.droidconberlin.util
 
 import android.content.Context
+import android.databinding.Observable
+import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
+import android.databinding.ObservableInt
 import android.net.Uri
 import android.support.annotation.*
 import android.support.customtabs.CustomTabsIntent
@@ -48,4 +52,29 @@ fun View.showSnackbar(@StringRes message: Int, length: Int = Snackbar.LENGTH_LON
 
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
+}
+
+inline fun <T, R> ObservableField<R>.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> R): ObservableField<R> {
+    observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            set(mapper(observableField.get()))
+        }
+    })
+    return this
+}
+
+inline fun <T> ObservableBoolean.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> Boolean) {
+    observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            set(mapper(observableField.get()))
+        }
+    })
+}
+
+inline fun <T> ObservableInt.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> Int) {
+    observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            set(mapper(observableField.get()))
+        }
+    })
 }
