@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.agenda.list.MyAgendaItemViewModel" />
+            type="com.arthurnagy.droidcon.feature.agenda.list.MyAgendaItemViewModel" />
 
         <import type="android.view.View" />
 
-        <import type="com.arthurnagy.droidconberlin.R" />
+        <import type="com.arthurnagy.droidcon.R" />
 
     </data>
 
@@ -44,7 +44,7 @@
             android:textAppearance="@style/SessionShortInfoTextAppearance"
             tools:text="14:00 - 15:30 / LAMARR" />
 
-        <com.arthurnagy.droidconberlin.feature.shared.TermsView
+        <com.arthurnagy.droidcon.feature.shared.TermsView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_padding"

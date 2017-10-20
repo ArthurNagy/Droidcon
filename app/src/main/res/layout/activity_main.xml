@@ -9,7 +9,7 @@
     <merge
         tools:layout_width="match_parent"
         tools:layout_height="match_parent"
-        tools:context="com.arthurnagy.droidconberlin.feature.MainActivity"
+        tools:context="com.arthurnagy.droidcon.feature.MainActivity"
         tools:parentTag="android.widget.FrameLayout">
 
         <FrameLayout

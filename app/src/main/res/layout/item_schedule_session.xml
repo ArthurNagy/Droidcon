@@ -9,11 +9,11 @@
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.schedule.list.ScheduleItemViewModel" />
+            type="com.arthurnagy.droidcon.feature.schedule.list.ScheduleItemViewModel" />
 
         <import type="android.view.View" />
 
-        <import type="com.arthurnagy.droidconberlin.R" />
+        <import type="com.arthurnagy.droidcon.R" />
 
     </data>
 
@@ -46,7 +46,7 @@
             android:textAppearance="@style/SessionShortInfoTextAppearance"
             tools:text="LAMARR / 45 Minutes" />
 
-        <com.arthurnagy.droidconberlin.feature.shared.TermsView
+        <com.arthurnagy.droidcon.feature.shared.TermsView
             android:id="@+id/session_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

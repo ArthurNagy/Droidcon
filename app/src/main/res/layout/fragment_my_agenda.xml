@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.agenda.MyAgendaViewModel" />
+            type="com.arthurnagy.droidcon.feature.agenda.MyAgendaViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout

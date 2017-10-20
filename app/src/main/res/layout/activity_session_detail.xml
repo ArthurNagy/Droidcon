@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.arthurnagy.droidconberlin.feature.session.SessionDetailViewModel" />
+            type="com.arthurnagy.droidcon.feature.session.SessionDetailViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -83,7 +83,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     tools:text="Bla bla bla bla bla" />
 
-                <com.arthurnagy.droidconberlin.feature.shared.TermsView
+                <com.arthurnagy.droidcon.feature.shared.TermsView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:terms="@{viewModel.session.terms}" />
