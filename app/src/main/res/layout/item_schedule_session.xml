@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:clickable="@{!viewModel.intermissionFlag}"
+        android:clickable="@{!viewModel.sessionIntermissionFlag}"
         android:paddingBottom="@dimen/content_padding"
         android:paddingStart="@dimen/large_padding"
         android:paddingTop="@dimen/large_padding">
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/content_padding"
             android:text="@{viewModel.scheduleSession.title}"
-            android:textAppearance="@{viewModel.intermissionFlag ? R.style.SessionTitleTextAppearanceItalic : R.style.SessionTitleTextAppearance}"
+            android:textAppearance="@{viewModel.sessionIntermissionFlag ? R.style.SessionTitleTextAppearanceItalic : R.style.SessionTitleTextAppearance}"
             tools:text=" Reactive, Clean Architecture and Android Architecture Components, a solid formula for a MVVM based architecture. " />
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/short_info"
             android:paddingTop="@dimen/content_padding"
-            android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
+            android:visibility="@{viewModel.sessionIntermissionFlag ? View.GONE: View.VISIBLE}"
             app:terms="@{viewModel.scheduleSession.terms}" />
 
         <ImageView
@@ -65,8 +65,8 @@
             android:contentDescription="@string/content_desc_save_session"
             android:padding="@dimen/large_padding"
             android:src="@{viewModel.savedStateIcon}"
-            android:visibility="@{viewModel.intermissionFlag ? View.GONE: View.VISIBLE}"
             android:tint="@{viewModel.scheduleSession.isSaved ? @color/accent : @color/icon_color}"
+            android:visibility="@{viewModel.sessionIntermissionFlag ? View.GONE: View.VISIBLE}"
             app:srcCompat="@drawable/ic_add_box_24dp" />
 
     </RelativeLayout>

@@ -42,6 +42,6 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
     override fun getItemCount() = items.size
 
     override fun bindItem(holder: BindingViewHolder<ScheduleSessionItemBinding, ScheduleItemViewModel>, position: Int, payloads: List<Any>) {
-        holder.viewModel.scheduleSession = items[position]
+        holder.viewModel.scheduleSession.set(items[position])
     }
 }

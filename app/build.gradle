@@ -35,7 +35,7 @@ ext {
     daggerVersion = '2.12'
     supportLibraryVersion = '26.1.0'
     rxJavaVersion = '2.1.5'
-    androidArchitectureVersion = '1.0.0-beta2'
+    androidArchitectureVersion = '1.0.0-rc1'
 }
 
 dependencies {
@@ -62,17 +62,17 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     // Networking
-    compile "com.squareup.okhttp3:okhttp:$okHttp"
-    compile "com.squareup.okhttp3:logging-interceptor:$okHttp"
-    compile("com.squareup.retrofit2:retrofit:$retrofitVersion") {
+    implementation "com.squareup.okhttp3:okhttp:$okHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         exclude module: 'okhttp'
     }
-    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     // Rx
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     kapt "com.android.databinding:compiler:$gradleVersion"
 }

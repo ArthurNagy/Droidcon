@@ -3,12 +3,15 @@ package com.arthurnagy.droidconberlin.feature.session
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.arthurnagy.droidconberlin.*
+import com.arthurnagy.droidconberlin.BuildConfig
+import com.arthurnagy.droidconberlin.R
+import com.arthurnagy.droidconberlin.SessionDetailBinding
+import com.arthurnagy.droidconberlin.SpeakerBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconActivity
+import com.arthurnagy.droidconberlin.util.observe
 import com.arthurnagy.droidconberlin.util.openUrl
 
 class SessionDetailActivity : DroidconActivity() {
@@ -24,19 +27,15 @@ class SessionDetailActivity : DroidconActivity() {
         binding.viewModel = viewModel
         viewModel.setupSession(intent.getStringExtra(SESSION_ID))
 
-        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (propertyId == BR.session) {
-                    binding.container.removeViews(STATIC_VIEW_COUNT, binding.container.childCount - STATIC_VIEW_COUNT)
-                    viewModel.session?.speakers?.forEach { (name, url) ->
-                        val speakerBinding = SpeakerBinding.inflate(layoutInflater)
-                        speakerBinding.speakerName = name
-                        binding.container.addView(speakerBinding.root)
-                        speakerBinding.root.setOnClickListener { openUrl(BuildConfig.DROIDCON_URL + url) }
-                    }
-                }
+        viewModel.session.observe {
+            binding.container.removeViews(STATIC_VIEW_COUNT, binding.container.childCount - STATIC_VIEW_COUNT)
+            it.speakers?.forEach { (name, url) ->
+                val speakerBinding = SpeakerBinding.inflate(layoutInflater)
+                speakerBinding.speakerName = name
+                binding.container.addView(speakerBinding.root)
+                speakerBinding.root.setOnClickListener { openUrl(BuildConfig.DROIDCON_URL + url) }
             }
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,12 +48,12 @@ class SessionDetailActivity : DroidconActivity() {
             startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, "${viewModel.session?.title} ${BuildConfig.DROIDCON_URL + viewModel.session?.url}")
+                putExtra(Intent.EXTRA_SUBJECT, "${viewModel.session.get().title} ${BuildConfig.DROIDCON_URL + viewModel.session.get().url}")
             }, getString(R.string.share_via)))
             true
         }
         R.id.url -> {
-            viewModel.session?.let {
+            viewModel.session.get().let {
                 openUrl(BuildConfig.DROIDCON_URL + it.url)
             }
             true

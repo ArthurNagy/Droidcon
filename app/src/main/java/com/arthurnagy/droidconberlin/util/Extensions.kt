@@ -54,27 +54,48 @@ operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
     add(disposable)
 }
 
-inline fun <T, R> ObservableField<R>.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> R): ObservableField<R> {
+inline fun <T, R> ObservableField<R>.dependsOn(dependableField: ObservableField<T>, crossinline mapper: (T) -> R): ObservableField<R> {
+    dependableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            set(mapper(dependableField.get()))
+        }
+    })
+    return this
+}
+
+inline fun <R> ObservableField<R>.observe(crossinline observer: (R) -> Unit) {
+    this.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(p0: Observable?, p1: Int) {
+            observer(get())
+        }
+    })
+}
+
+inline fun <R> ObservableField<R>.dependsOn(vararg dependableFields: ObservableField<out Any>, crossinline mapper: () -> R): ObservableField<R> {
+    dependableFields.forEach { dependableField ->
+        dependableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                set(mapper())
+            }
+        })
+    }
+    return this
+}
+
+inline fun <T> ObservableBoolean.dependsOn(dependableField: ObservableField<T>, crossinline mapper: (T) -> Boolean): ObservableBoolean {
+    dependableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            set(mapper(dependableField.get()))
+        }
+    })
+    return this
+}
+
+inline fun <T> ObservableInt.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> Int): ObservableInt {
     observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
             set(mapper(observableField.get()))
         }
     })
     return this
-}
-
-inline fun <T> ObservableBoolean.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> Boolean) {
-    observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            set(mapper(observableField.get()))
-        }
-    })
-}
-
-inline fun <T> ObservableInt.dependsOn(observableField: ObservableField<T>, crossinline mapper: (T) -> Int) {
-    observableField.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            set(mapper(observableField.get()))
-        }
-    })
 }

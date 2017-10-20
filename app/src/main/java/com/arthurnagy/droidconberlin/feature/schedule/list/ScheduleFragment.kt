@@ -1,19 +1,18 @@
 package com.arthurnagy.droidconberlin.feature.schedule.list
 
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arthurnagy.droidconberlin.BR
 import com.arthurnagy.droidconberlin.R
 import com.arthurnagy.droidconberlin.ScheduleBinding
 import com.arthurnagy.droidconberlin.architecture.DroidconFragment
 import com.arthurnagy.droidconberlin.feature.session.SessionDetailActivity
 import com.arthurnagy.droidconberlin.feature.shared.StickyHeaderItemDecoration
 import com.arthurnagy.droidconberlin.util.color
+import com.arthurnagy.droidconberlin.util.observe
 
 class ScheduleFragment : DroidconFragment() {
 
@@ -40,13 +39,9 @@ class ScheduleFragment : DroidconFragment() {
         })
 
         binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
-        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when (propertyId) {
-                    BR.sessionClick -> SessionDetailActivity.start(context, viewModel.sessionClick?.id ?: "")
-                }
-            }
-        })
+        viewModel.clickedSession.observe { session ->
+            SessionDetailActivity.start(context, session.id)
+        }
     }
 
     override fun onResume() {
