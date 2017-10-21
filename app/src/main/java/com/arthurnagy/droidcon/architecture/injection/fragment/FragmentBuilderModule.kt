@@ -1,4 +1,4 @@
-package com.arthurnagy.droidcon.injection.fragment
+package com.arthurnagy.droidcon.architecture.injection.fragment
 
 import com.arthurnagy.droidcon.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidcon.feature.info.InfoFragment

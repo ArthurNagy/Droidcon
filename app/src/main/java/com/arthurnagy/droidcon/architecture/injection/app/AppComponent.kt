@@ -1,8 +1,8 @@
-package com.arthurnagy.droidcon.injection.app
+package com.arthurnagy.droidcon.architecture.injection.app
 
 import com.arthurnagy.droidcon.DroidconApplication
-import com.arthurnagy.droidcon.injection.DroidconApiModule
-import com.arthurnagy.droidcon.injection.activity.ActivityBuilderModule
+import com.arthurnagy.droidcon.architecture.injection.DroidconApiModule
+import com.arthurnagy.droidcon.architecture.injection.activity.ActivityBuilderModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule

@@ -1,4 +1,4 @@
-package com.arthurnagy.droidcon.injection.viewmodel
+package com.arthurnagy.droidcon.architecture.injection.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import dagger.MapKey

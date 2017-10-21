@@ -1,6 +1,5 @@
-package com.arthurnagy.droidcon.repository
+package com.arthurnagy.droidcon.architecture.repository
 
-import com.arthurnagy.droidcon.architecture.repository.Source
 import com.arthurnagy.droidcon.model.Session
 import io.reactivex.Observable
 import javax.inject.Inject

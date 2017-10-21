@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.arthurnagy.droidcon.MainBinding
 import com.arthurnagy.droidcon.R
-import com.arthurnagy.droidcon.SharedPreferencesManager
+import com.arthurnagy.droidcon.storage.SharedPreferencesManager
 import com.arthurnagy.droidcon.feature.agenda.MyAgendaFragment
 import com.arthurnagy.droidcon.feature.info.InfoFragment
 import com.arthurnagy.droidcon.feature.schedule.SchedulePagerFragment

@@ -6,7 +6,7 @@ import android.text.Html
 import com.arthurnagy.droidcon.R
 import com.arthurnagy.droidcon.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidcon.model.Session
-import com.arthurnagy.droidcon.repository.SessionRepository
+import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.util.dependsOn
 import com.arthurnagy.droidcon.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers

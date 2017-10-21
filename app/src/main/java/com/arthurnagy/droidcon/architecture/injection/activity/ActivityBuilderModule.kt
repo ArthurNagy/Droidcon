@@ -1,9 +1,9 @@
-package com.arthurnagy.droidcon.injection.activity
+package com.arthurnagy.droidcon.architecture.injection.activity
 
 import android.content.Context
 import com.arthurnagy.droidcon.feature.MainActivity
 import com.arthurnagy.droidcon.feature.session.SessionDetailActivity
-import com.arthurnagy.droidcon.injection.fragment.FragmentBuilderModule
+import com.arthurnagy.droidcon.architecture.injection.fragment.FragmentBuilderModule
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector

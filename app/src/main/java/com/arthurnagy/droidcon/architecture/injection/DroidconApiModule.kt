@@ -1,4 +1,4 @@
-package com.arthurnagy.droidcon.injection
+package com.arthurnagy.droidcon.architecture.injection
 
 import com.arthurnagy.droidcon.BuildConfig
 import com.arthurnagy.droidcon.DroidconApiService

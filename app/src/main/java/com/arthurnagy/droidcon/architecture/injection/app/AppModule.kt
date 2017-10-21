@@ -1,8 +1,8 @@
-package com.arthurnagy.droidcon.injection.app
+package com.arthurnagy.droidcon.architecture.injection.app
 
 import android.content.Context
 import com.arthurnagy.droidcon.DroidconApplication
-import com.arthurnagy.droidcon.injection.viewmodel.ViewModelModule
+import com.arthurnagy.droidcon.architecture.injection.viewmodel.ViewModelModule
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

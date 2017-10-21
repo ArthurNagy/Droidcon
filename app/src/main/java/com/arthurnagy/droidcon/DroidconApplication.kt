@@ -1,6 +1,6 @@
 package com.arthurnagy.droidcon
 
-import com.arthurnagy.droidcon.injection.app.DaggerAppComponent
+import com.arthurnagy.droidcon.architecture.injection.app.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 

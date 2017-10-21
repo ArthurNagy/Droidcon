@@ -1,9 +1,9 @@
-package com.arthurnagy.droidcon
+package com.arthurnagy.droidcon.storage
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.arthurnagy.droidcon.injection.app.AppContext
+import com.arthurnagy.droidcon.architecture.injection.app.AppContext
 import javax.inject.Inject
 import javax.inject.Singleton
 

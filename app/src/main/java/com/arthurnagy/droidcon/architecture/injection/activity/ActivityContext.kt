@@ -1,4 +1,4 @@
-package com.arthurnagy.droidcon.injection.app
+package com.arthurnagy.droidcon.architecture.injection.activity
 
 import javax.inject.Qualifier
 
@@ -7,4 +7,4 @@ import javax.inject.Qualifier
  */
 @Qualifier
 @Retention
-annotation class AppContext
+annotation class ActivityContext

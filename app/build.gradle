@@ -50,10 +50,10 @@ dependencies {
 
     // Android architecture components
     implementation "android.arch.lifecycle:extensions:$androidArchitectureVersion"
-//    implementation "android.arch.persistence.room:runtime:$androidArchitectureVersion"
-//    implementation "android.arch.persistence.room:rxjava2:$androidArchitectureVersion"
+    implementation "android.arch.persistence.room:runtime:$androidArchitectureVersion"
+    implementation "android.arch.persistence.room:rxjava2:$androidArchitectureVersion"
     kapt "android.arch.lifecycle:compiler:$androidArchitectureVersion"
-//    kapt "android.arch.persistence.room:compiler:$androidArchitectureVersion"
+    kapt "android.arch.persistence.room:compiler:$androidArchitectureVersion"
 
     // Dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
