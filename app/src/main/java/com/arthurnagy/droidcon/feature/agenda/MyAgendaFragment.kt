@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.arthurnagy.droidcon.MyAgendaBinding
 import com.arthurnagy.droidcon.R
 import com.arthurnagy.droidcon.architecture.DroidconFragment
+import com.arthurnagy.droidcon.util.color
 import com.arthurnagy.droidcon.util.setupToolbar
 
 class MyAgendaFragment : DroidconFragment() {
@@ -26,6 +27,9 @@ class MyAgendaFragment : DroidconFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel
+
+        binding.refreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
+
 //        binding.recyclerView.adapter = viewModel.adapter
 //        binding.recyclerView.addItemDecoration(object : StickyHeaderItemDecoration(context) {
 //            override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
@@ -53,7 +57,6 @@ class MyAgendaFragment : DroidconFragment() {
 //                snackbar?.show()
 //            }
 //        }).attachToRecyclerView(binding.recyclerView)
-//        binding.refreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
 //
 //        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
 //            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

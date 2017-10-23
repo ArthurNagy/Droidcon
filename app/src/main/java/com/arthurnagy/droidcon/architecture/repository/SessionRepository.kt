@@ -1,7 +1,6 @@
 package com.arthurnagy.droidcon.architecture.repository
 
 import com.arthurnagy.droidcon.model.Session
-import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +13,9 @@ class SessionRepository @Inject constructor(
 
     override fun get(): Observable<List<Session>> {
         if (cachedData.isNotEmpty()) {
-            return Observable.fromIterable(cachedData.values).toList().toObservable()
+            return Observable.fromIterable(cachedData.values)
+                    .toList().toObservable()
+                    .doOnNext(dataStream::onNext)
         }
         val localSessions = getAndCacheLocalSessions()
         val remoteSessions = getAndSaveRemoteSessions()
@@ -32,9 +33,9 @@ class SessionRepository @Inject constructor(
     private fun getAndSaveRemoteSessions(): Observable<List<Session>> = remoteSource.get()
             .flatMap { sessions ->
                 Observable.fromIterable(sessions)
-                        .doOnNext { session ->
-                            localSource.save(session)
+                        .flatMap { session ->
                             cachedData.put(session.id, session)
+                            localSource.save(session)
                         }.toList().toObservable()
             }
 
@@ -49,7 +50,7 @@ class SessionRepository @Inject constructor(
             .firstElement()
             .toObservable()
 
-    override fun delete(data: Session): Completable = localSource.delete(data)
+    override fun delete(data: Session): Observable<Boolean> = localSource.delete(data)
 
     override fun save(data: Session): Observable<Session> = localSource.save(data)
 

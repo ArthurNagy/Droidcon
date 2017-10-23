@@ -1,6 +1,5 @@
 package com.arthurnagy.droidcon.architecture.repository
 
-import io.reactivex.Completable
 import io.reactivex.Observable
 
 
@@ -12,7 +11,7 @@ interface Source<DataType, KeyType> {
 
     fun refresh(): Observable<List<DataType>>
 
-    fun delete(data: DataType): Completable
+    fun delete(data: DataType): Observable<Boolean>
 
     fun save(data: DataType): Observable<DataType>
 

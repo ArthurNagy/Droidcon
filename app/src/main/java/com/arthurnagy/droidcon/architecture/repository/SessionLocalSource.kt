@@ -5,7 +5,6 @@ import com.arthurnagy.droidcon.storage.database.SessionDao
 import com.arthurnagy.droidcon.storage.database.SessionWithRelations
 import com.arthurnagy.droidcon.storage.database.SpeakerDao
 import com.arthurnagy.droidcon.storage.database.TermDao
-import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,13 +16,13 @@ class SessionLocalSource @Inject constructor(
         private val speakerDao: SpeakerDao) : Source<Session, String> {
 
     override fun get(): Observable<List<Session>> = sessionDao.getAll()
+            .filter { sessionsWithRelations -> sessionsWithRelations.isNotEmpty() }
+            .flatMapObservable { sessionsWithRelations ->
+                Observable.fromIterable(sessionsWithRelations)
+                        .map { sessionWithRelation -> sessionWithRelation.toSession() }
+            }.toList()
             .toObservable()
-            .flatMapIterable { sessionsWithRelations ->
-                sessionsWithRelations
-                        .map { sessionWithRelations ->
-                            sessionWithRelations.toSession()
-                        }
-            }.toList().toObservable()
+
 
     override fun refresh(): Observable<List<Session>> = Observable.empty()
 
@@ -33,14 +32,17 @@ class SessionLocalSource @Inject constructor(
                 sessionWithRelations.toSession()
             }
 
-    override fun delete(data: Session): Completable = Completable.fromAction { sessionDao.delete(data) }
+    override fun delete(data: Session): Observable<Boolean> = Observable.fromCallable {
+        val result = sessionDao.delete(data)
+        result > 0
+    }
 
-    override fun save(data: Session): Observable<Session> = Observable.just(data)
-            .doOnSubscribe {
-                sessionDao.insertAll(data)
-                data.terms?.let { termDao.insertAll(*it.toTypedArray()) }
-                data.speakers?.let { speakerDao.insertAll(*it.toTypedArray()) }
-            }
+    override fun save(data: Session): Observable<Session> = Observable.fromCallable {
+        sessionDao.insertAll(data)
+        termDao.insertAll(*data.terms.orEmpty().toTypedArray())
+        speakerDao.insertAll(*data.speakers.orEmpty().toTypedArray())
+        data
+    }
 
     private fun SessionWithRelations.toSession() =
             Session(id = this.session.id,

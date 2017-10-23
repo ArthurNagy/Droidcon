@@ -10,9 +10,9 @@ import com.arthurnagy.droidcon.model.Term
 interface TermDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg terms: Term)
+    fun insertAll(vararg terms: Term): Array<Long>
 
     @Delete
-    fun delete(term: Term)
+    fun delete(term: Term): Int
 
 }

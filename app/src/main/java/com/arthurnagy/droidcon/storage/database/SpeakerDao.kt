@@ -10,9 +10,9 @@ import com.arthurnagy.droidcon.model.Speaker
 interface SpeakerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg speakers: Speaker)
+    fun insertAll(vararg speakers: Speaker): Array<Long>
 
     @Delete
-    fun delete(speaker: Speaker)
+    fun delete(speaker: Speaker): Int
 
 }

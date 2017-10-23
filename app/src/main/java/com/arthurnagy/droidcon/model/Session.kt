@@ -12,7 +12,7 @@ data class Session constructor(
         @SerializedName("id") val id: String,
         @SerializedName("title") val title: String,
         @SerializedName("url") val url: String,
-        @SerializedName("room") val room: Room,
+        @SerializedName("room") val room: String,
         @SerializedName("start") val startDate: Date,
         @SerializedName("end") val endDate: Date,
         @SerializedName("description") val description: String?,
@@ -25,7 +25,7 @@ data class Session constructor(
     @SerializedName("terms")
     var terms: List<Term>? = null
 
-    constructor(id: String, title: String, url: String, room: Room, startDate: Date, endDate: Date, description: String?, isSaved: Boolean,
+    constructor(id: String, title: String, url: String, room: String, startDate: Date, endDate: Date, description: String?, isSaved: Boolean,
                 speakers: List<Speaker>?,
                 terms: List<Term>?) : this(id, title, url, room, startDate, endDate, description, isSaved) {
         this.speakers = speakers

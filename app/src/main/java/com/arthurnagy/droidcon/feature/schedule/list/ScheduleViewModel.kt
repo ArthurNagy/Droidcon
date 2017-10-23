@@ -3,10 +3,10 @@ package com.arthurnagy.droidcon.feature.schedule.list
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.util.Log
+import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidcon.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidcon.model.Session
-import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -56,6 +56,7 @@ class ScheduleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
+                    Log.d("LOFASZ", "kurva anyad")
                     val sessionCalendar = Calendar.getInstance()
                     adapter.replace(sessions.filter { session ->
                         sessionCalendar.time = session.startDate
@@ -76,8 +77,10 @@ class ScheduleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    Log.d("LOFASZ", "success:")
                     swipeRefreshState.set(false)
                 }, {
+                    Log.d("LOFASZ", "error: ${it.message}")
                     swipeRefreshState.set(false)
                 })
     }
@@ -87,8 +90,11 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ swipeRefreshState.set(false) },
-                        { swipeRefreshState.set(false) })
+                .subscribe({
+                    swipeRefreshState.set(false)
+                }, {
+                    swipeRefreshState.set(false)
+                })
     }
 
     fun isHeaderItem(position: Int) = when (position) {
