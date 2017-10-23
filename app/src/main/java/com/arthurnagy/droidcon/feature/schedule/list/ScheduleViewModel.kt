@@ -56,7 +56,6 @@ class ScheduleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { sessions ->
-                    Log.d("LOFASZ", "kurva anyad")
                     val sessionCalendar = Calendar.getInstance()
                     adapter.replace(sessions.filter { session ->
                         sessionCalendar.time = session.startDate
@@ -76,13 +75,7 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Log.d("LOFASZ", "success:")
-                    swipeRefreshState.set(false)
-                }, {
-                    Log.d("LOFASZ", "error: ${it.message}")
-                    swipeRefreshState.set(false)
-                })
+                .subscribe({ swipeRefreshState.set(false) }, { swipeRefreshState.set(false) })
     }
 
     fun refresh() {
@@ -90,11 +83,7 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    swipeRefreshState.set(false)
-                }, {
-                    swipeRefreshState.set(false)
-                })
+                .subscribe({ swipeRefreshState.set(false) }, { swipeRefreshState.set(false) })
     }
 
     fun isHeaderItem(position: Int) = when (position) {
