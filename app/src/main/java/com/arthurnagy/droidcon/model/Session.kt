@@ -26,8 +26,8 @@ data class Session constructor(
     var terms: List<Term>? = null
 
     constructor(id: String, title: String, url: String, room: String, startDate: Date, endDate: Date, description: String?, isSaved: Boolean,
-                speakers: List<Speaker>?,
-                terms: List<Term>?) : this(id, title, url, room, startDate, endDate, description, isSaved) {
+                speakers: List<Speaker>,
+                terms: List<Term>) : this(id, title, url, room, startDate, endDate, description, isSaved) {
         this.speakers = speakers
         this.terms = terms
     }

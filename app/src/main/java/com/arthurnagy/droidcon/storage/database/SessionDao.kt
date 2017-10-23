@@ -10,7 +10,7 @@ interface SessionDao {
     @Query("SELECT * FROM Session")
     fun getAll(): Single<List<SessionWithRelations>>
 
-    @Query("SELECT * FROM session WHERE id LIKE :id")
+    @Query("SELECT * FROM Session WHERE id LIKE :id")
     fun getById(id: String): Single<SessionWithRelations>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

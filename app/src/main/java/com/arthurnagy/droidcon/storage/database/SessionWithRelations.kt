@@ -10,8 +10,8 @@ import com.arthurnagy.droidcon.model.Term
 class SessionWithRelations constructor(@Embedded var session: Session) {
 
     @Relation(parentColumn = "id", entityColumn = "session_id")
-    var speakers: List<Speaker>? = null
+    lateinit var speakers: List<Speaker>
     @Relation(parentColumn = "id", entityColumn = "session_id")
-    var terms: List<Term>? = null
+    lateinit var terms: List<Term>
 
 }

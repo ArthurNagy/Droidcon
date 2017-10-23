@@ -39,7 +39,9 @@ class SessionLocalSource @Inject constructor(
 
     override fun save(data: Session): Observable<Session> = Observable.fromCallable {
         sessionDao.insertAll(data)
+        data.terms?.forEach { it.sessionId = data.id }
         termDao.insertAll(*data.terms.orEmpty().toTypedArray())
+        data.speakers?.forEach { it.sessionId = data.id }
         speakerDao.insertAll(*data.speakers.orEmpty().toTypedArray())
         data
     }
