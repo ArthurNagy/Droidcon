@@ -13,4 +13,9 @@ abstract class DroidconDatabase : RoomDatabase() {
 
     abstract fun sessionDao(): SessionDao
 
+    abstract fun termDao(): TermDao
+
+    abstract fun speakerDao(): SpeakerDao
+
+
 }

@@ -1,9 +1,6 @@
 package com.arthurnagy.droidcon.storage.database
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.arthurnagy.droidcon.model.Session
 import io.reactivex.Flowable
 
@@ -11,9 +8,12 @@ import io.reactivex.Flowable
 interface SessionDao {
 
     @Query("SELECT * FROM session")
-    fun getAll(): Flowable<List<Session>>
+    fun getAll(): Flowable<List<SessionWithRelations>>
 
-    @Insert
+    @Query("SELECT * FROM session WHERE id LIKE :id")
+    fun getById(id: String): Flowable<SessionWithRelations>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg sessions: Session)
 
     @Delete
