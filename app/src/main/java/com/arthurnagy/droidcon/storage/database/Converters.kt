@@ -22,7 +22,13 @@ class Converters {
 
     @TypeConverter
     fun stringToSessionRoom(stringRoom: String?): Session.Room? {
-        return if (stringRoom == null) null else Session.Room.valueOf(stringRoom)
+        return when (stringRoom) {
+            Session.Room.LAMARR.roomValue -> Session.Room.LAMARR
+            Session.Room.LOVELACE.roomValue -> Session.Room.LOVELACE
+            Session.Room.TURING.roomValue -> Session.Room.TURING
+            Session.Room.ZUSE.roomValue -> Session.Room.ZUSE
+            else -> null
+        }
     }
 
 }

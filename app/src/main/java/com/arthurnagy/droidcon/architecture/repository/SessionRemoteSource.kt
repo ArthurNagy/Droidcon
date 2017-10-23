@@ -10,9 +10,17 @@ import javax.inject.Singleton
 class SessionRemoteSource @Inject constructor(
         private val apiService: DroidconApiService) : Source<Session, String> {
 
-    override fun get(): Observable<List<Session>> = apiService.getSchedule().toObservable()
+    // TODO: Find a better way to filter out duplicates from API
+    private fun loadSessionsAndFilter(): Observable<List<Session>> = apiService.getSchedule()
+            .flatMapObservable { sessions ->
+                Observable.fromIterable(sessions
+                        .associateBy { "${it.title}+++${it.room.roomValue}" }
+                        .values).toList().toObservable()
+            }
 
-    override fun refresh(): Observable<List<Session>> = apiService.getSchedule().toObservable()
+    override fun get(): Observable<List<Session>> = loadSessionsAndFilter()
+
+    override fun refresh(): Observable<List<Session>> = loadSessionsAndFilter()
 
     override fun get(key: String): Observable<Session> = Observable.empty()
 
