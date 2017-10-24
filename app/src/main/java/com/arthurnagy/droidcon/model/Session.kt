@@ -3,10 +3,11 @@ package com.arthurnagy.droidcon.model
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
+import com.arthurnagy.droidcon.storage.database.Constants
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-@Entity
+@Entity(tableName = Constants.TABLE_SESSION)
 data class Session constructor(
         @PrimaryKey
         @SerializedName("id") val id: String,

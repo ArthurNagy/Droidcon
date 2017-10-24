@@ -2,22 +2,11 @@ package com.arthurnagy.droidcon.model
 
 import android.arch.persistence.room.*
 import android.arch.persistence.room.ForeignKey.CASCADE
+import com.arthurnagy.droidcon.storage.database.Constants
 import com.google.gson.annotations.SerializedName
 
-@Entity(foreignKeys = arrayOf(
-        ForeignKey(entity = Session::class,
-                parentColumns = arrayOf("id"),
-                childColumns = arrayOf("session_id"),
-                onDelete = CASCADE)))
-data class Speaker @Ignore constructor(
+@Entity(tableName = Constants.TABLE_SPEAKER)
+data class Speaker(
         @PrimaryKey
         @SerializedName("name") val name: String,
-        @SerializedName("url") val url: String) {
-
-    @ColumnInfo(name = "session_id")
-    var sessionId: String? = null
-
-    constructor(name: String, url: String, sessionId: String) : this(name, url) {
-        this.sessionId = sessionId
-    }
-}
+        @SerializedName("url") val url: String)

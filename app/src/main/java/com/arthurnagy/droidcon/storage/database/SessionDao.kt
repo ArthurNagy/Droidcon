@@ -7,11 +7,11 @@ import io.reactivex.Single
 @Dao
 interface SessionDao {
 
-    @Query("SELECT * FROM Session")
-    fun getAll(): Single<List<SessionWithRelations>>
+    @Query("SELECT * FROM ${Constants.TABLE_SESSION}")
+    fun getAll(): Single<List<Session>>
 
-    @Query("SELECT * FROM Session WHERE id LIKE :id")
-    fun getById(id: String): Single<SessionWithRelations>
+    @Query("SELECT * FROM ${Constants.TABLE_SESSION} WHERE id LIKE :id")
+    fun getById(id: String): Single<Session>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg sessions: Session): Array<Long>

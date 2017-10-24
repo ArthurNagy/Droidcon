@@ -1,25 +1,14 @@
 package com.arthurnagy.droidcon.model
 
-import android.arch.persistence.room.*
-import android.arch.persistence.room.ForeignKey.CASCADE
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
+import com.arthurnagy.droidcon.storage.database.Constants
 import com.google.gson.annotations.SerializedName
 
-@Entity(foreignKeys = arrayOf(
-        ForeignKey(entity = Session::class,
-                parentColumns = arrayOf("id"),
-                childColumns = arrayOf("session_id"),
-                onDelete = CASCADE)))
-data class Term @Ignore constructor(
+@Entity(tableName = Constants.TABLE_TERM)
+data class Term (
         @SerializedName("name") val name: String,
         @SerializedName("url") val url: String,
         @PrimaryKey
-        @SerializedName("tid") val id: Int) {
-
-    @ColumnInfo(name = "session_id")
-    var sessionId: String? = null
-
-    constructor(name: String, url: String, id: Int, sessionId: String) : this(name, url, id) {
-        this.sessionId = sessionId
-    }
-
-}
+        @SerializedName("tid") val id: Int)
