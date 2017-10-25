@@ -19,7 +19,8 @@ object DatabaseModule {
     @JvmStatic
     @Provides
     fun provideDroidconDatabase(@AppContext context: Context): DroidconDatabase
-            = Room.databaseBuilder(context, DroidconDatabase::class.java, "droidcon-db").build()
+            = Room.databaseBuilder(context, DroidconDatabase::class.java, "droidcon-db")
+            .build()
 
     @Singleton
     @JvmStatic

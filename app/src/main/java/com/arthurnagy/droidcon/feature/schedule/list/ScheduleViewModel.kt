@@ -75,7 +75,13 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ swipeRefreshState.set(false) }, { swipeRefreshState.set(false) })
+                .subscribe({
+                    Log.d("LOFASZ", "sessionRepository.get:success")
+                    swipeRefreshState.set(false)
+                }, {
+                    Log.d("LOFASZ", "sessionRepository.get:error: ${it.message}")
+                    swipeRefreshState.set(false)
+                })
     }
 
     fun refresh() {
@@ -83,7 +89,13 @@ class ScheduleViewModel @Inject constructor(
         disposables += sessionRepository.refresh()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ swipeRefreshState.set(false) }, { swipeRefreshState.set(false) })
+                .subscribe({
+                    Log.d("LOFASZ", "sessionRepository.refresh:success")
+                    swipeRefreshState.set(false)
+                }, {
+                    Log.d("LOFASZ", "sessionRepository.refresh:error: ${it.message}")
+                    swipeRefreshState.set(false)
+                })
     }
 
     fun isHeaderItem(position: Int) = when (position) {

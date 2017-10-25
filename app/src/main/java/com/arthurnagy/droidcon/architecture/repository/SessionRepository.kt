@@ -17,11 +17,8 @@ class SessionRepository @Inject constructor(
                     .toList().toObservable()
                     .doOnNext(dataStream::onNext)
         }
-        val localSessions = getAndCacheLocalSessions()
-        val remoteSessions = getAndSaveRemoteSessions()
 
-        return Observable.concat(localSessions, remoteSessions)
-                .filter { sessions -> !sessions.isEmpty() }
+        return Observable.concat(getAndCacheLocalSessions(), getAndSaveRemoteSessions())
                 .firstOrError()
                 .toObservable()
                 .doOnNext(dataStream::onNext)
@@ -30,14 +27,14 @@ class SessionRepository @Inject constructor(
     override fun refresh(): Observable<List<Session>> = getAndSaveRemoteSessions()
             .doOnNext(dataStream::onNext)
 
-    private fun getAndSaveRemoteSessions(): Observable<List<Session>> = remoteSource.get()
-            .flatMap { sessions ->
-                Observable.fromIterable(sessions)
-                        .flatMap { session ->
-                            cachedData.put(session.id, session)
-                            localSource.save(session)
-                        }.toList().toObservable()
-            }
+    private fun getAndSaveRemoteSessions(): Observable<List<Session>> = remoteSource.get().flatMap { sessions ->
+        Observable.fromIterable(sessions).map { session ->
+            cachedData.put(session.id, session)
+            session
+        }.toList().toObservable()
+    }.flatMap { sessions ->
+        localSource.save(sessions)
+    }
 
     private fun getAndCacheLocalSessions(): Observable<List<Session>> = localSource.get()
             .flatMap { sessions ->
@@ -53,5 +50,7 @@ class SessionRepository @Inject constructor(
     override fun delete(data: Session): Observable<Boolean> = localSource.delete(data)
 
     override fun save(data: Session): Observable<Session> = localSource.save(data)
+
+    override fun save(data: List<Session>): Observable<List<Session>> = localSource.save(data)
 
 }

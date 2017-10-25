@@ -7,7 +7,7 @@ import com.arthurnagy.droidcon.model.Session
 import com.arthurnagy.droidcon.model.Speaker
 import com.arthurnagy.droidcon.model.Term
 
-@Database(entities = arrayOf(Session::class, Speaker::class, Term::class), version = 1)
+@Database(entities = arrayOf(Session::class, Speaker::class, Term::class, SessionSpeaker::class, SessionTerm::class), version = 1)
 @TypeConverters(value = *arrayOf(Converters::class))
 abstract class DroidconDatabase : RoomDatabase() {
 
@@ -16,6 +16,5 @@ abstract class DroidconDatabase : RoomDatabase() {
     abstract fun termDao(): TermDao
 
     abstract fun speakerDao(): SpeakerDao
-
 
 }

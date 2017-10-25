@@ -15,4 +15,6 @@ interface Source<DataType, KeyType> {
 
     fun save(data: DataType): Observable<DataType>
 
+    fun save(data: List<DataType>): Observable<List<DataType>>
+
 }

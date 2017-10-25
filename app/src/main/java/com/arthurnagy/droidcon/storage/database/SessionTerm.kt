@@ -11,15 +11,17 @@ import com.arthurnagy.droidcon.model.Term
         foreignKeys = arrayOf(ForeignKey(
                 entity = Session::class,
                 parentColumns = arrayOf("id"),
-                childColumns = arrayOf(Constants.ID_SESSION)
+                childColumns = arrayOf(Constants.ID_SESSION),
+                onDelete = ForeignKey.CASCADE
         ), ForeignKey(
                 entity = Term::class,
                 parentColumns = arrayOf("id"),
-                childColumns = arrayOf(Constants.ID_TERM)
+                childColumns = arrayOf(Constants.ID_TERM),
+                onDelete = ForeignKey.CASCADE
         )))
 data class SessionTerm(
         @ColumnInfo(name = Constants.ID_SESSION, index = true)
-        val sessionId: Int,
+        val sessionId: String,
         @ColumnInfo(name = Constants.ID_TERM, index = true)
         val termId: Int
 )

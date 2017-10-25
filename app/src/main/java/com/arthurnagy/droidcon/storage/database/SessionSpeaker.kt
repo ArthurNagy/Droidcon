@@ -11,15 +11,17 @@ import com.arthurnagy.droidcon.model.Speaker
         foreignKeys = arrayOf(ForeignKey(
                 entity = Session::class,
                 parentColumns = arrayOf("id"),
-                childColumns = arrayOf(Constants.ID_SESSION)
+                childColumns = arrayOf(Constants.ID_SESSION),
+                onDelete = ForeignKey.CASCADE
         ), ForeignKey(
                 entity = Speaker::class,
                 parentColumns = arrayOf("id"),
-                childColumns = arrayOf(Constants.ID_SPEAKER)
+                childColumns = arrayOf(Constants.ID_SPEAKER),
+                onDelete = ForeignKey.CASCADE
         )))
 data class SessionSpeaker(
         @ColumnInfo(name = Constants.ID_SESSION, index = true)
-        val sessionId: Int,
+        val sessionId: String,
         @ColumnInfo(name = Constants.ID_SPEAKER, index = true)
-        val speakerId: Int
+        val speakerId: String
 )

@@ -28,4 +28,6 @@ class SessionRemoteSource @Inject constructor(
 
     override fun save(data: Session): Observable<Session> = Observable.just(data)
 
+    override fun save(data: List<Session>): Observable<List<Session>> = Observable.just(data)
+
 }
