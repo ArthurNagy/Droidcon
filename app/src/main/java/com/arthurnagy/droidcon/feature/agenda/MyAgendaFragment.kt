@@ -18,12 +18,12 @@ class MyAgendaFragment : DroidconFragment() {
     private val viewModel: MyAgendaViewModel by lazy { getViewModel(MyAgendaViewModel::class.java) }
     private var snackbar: Snackbar? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_agenda, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
         binding.viewModel = viewModel

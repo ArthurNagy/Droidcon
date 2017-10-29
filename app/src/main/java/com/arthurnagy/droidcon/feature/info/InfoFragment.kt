@@ -17,27 +17,27 @@ class InfoFragment : DroidconFragment() {
 
     private lateinit var binding: InfoBinding
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar(binding.toolbar)
 
         val viewModel = getViewModel(InfoViewModel::class.java)
         binding.viewModel = viewModel
 
-        binding.codeOfConduct.setOnClickListener { context.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/code-conduct") }
-        binding.venue.setOnClickListener { context.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/venue") }
-        binding.viewOnGitHub.setOnClickListener { context.openUrl(GIT_HUB_URL) }
+        binding.codeOfConduct.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/code-conduct") }
+        binding.venue.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/venue") }
+        binding.viewOnGitHub.setOnClickListener { context?.openUrl(GIT_HUB_URL) }
         binding.share.setOnClickListener {
             startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 type = "text/plain"
                 putExtra(Intent.EXTRA_SUBJECT, GIT_HUB_URL)
-            }, context.getString(R.string.share_via)))
+            }, context?.getString(R.string.share_via)))
 
         }
     }

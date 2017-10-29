@@ -35,7 +35,7 @@ fun Context.dimension(@DimenRes dimension: Int) = resources.getDimensionPixelSiz
 fun Context.drawable(@DrawableRes drawable: Int) = AppCompatResources.getDrawable(this, drawable)
 
 @ColorInt
-fun Context.color(@ColorRes color: Int) = ContextCompat.getColor(this, color)
+fun Context?.color(@ColorRes color: Int) = if (this == null) 0 else ContextCompat.getColor(this, color)
 
 fun Context.openUrl(url: String) = CustomTabsIntent.Builder()
         .setToolbarColor(this.color(R.color.primary))

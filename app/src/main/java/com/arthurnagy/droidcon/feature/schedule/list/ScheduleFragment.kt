@@ -19,28 +19,33 @@ class ScheduleFragment : DroidconFragment() {
     private lateinit var binding: ScheduleBinding
     private val viewModel: ScheduleViewModel by lazy { getViewModel(ScheduleViewModel::class.java) }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
-        viewModel.setScheduleDate(arguments.getLong(SCHEDULE_DAY_TIMESTAMP))
+        arguments?.let {
+            viewModel.setScheduleDate(it.getLong(SCHEDULE_DAY_TIMESTAMP))
+        }
+
+        binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
 
         binding.scheduleRecycler.adapter = viewModel.adapter
         binding.scheduleRecycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        binding.scheduleRecycler.addItemDecoration(object : StickyHeaderItemDecoration(context) {
-            override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
+        context?.let {
+            binding.scheduleRecycler.addItemDecoration(object : StickyHeaderItemDecoration(it) {
+                override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
 
-            override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
-        })
+                override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
+            })
 
-        binding.scheduleRefreshLayout.setColorSchemeColors(context.color(R.color.accent), context.color(R.color.primary))
-        viewModel.clickedSession.observe { session ->
-            SessionDetailActivity.start(context, session.id)
+            viewModel.clickedSession.observe { session ->
+                SessionDetailActivity.start(it, session.id)
+            }
         }
     }
 

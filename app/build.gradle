@@ -4,12 +4,12 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
     defaultConfig {
         applicationId "com.arthurnagy.droidcon"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
@@ -31,9 +31,9 @@ android {
 
 ext {
     retrofitVersion = '2.3.0'
-    okHttp = '3.8.0'
+    okHttp = '3.9.0'
     daggerVersion = '2.12'
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.0.0'
     rxJavaVersion = '2.1.5'
     androidArchitectureVersion = '1.0.0-rc1'
 }

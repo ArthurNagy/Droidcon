@@ -12,7 +12,7 @@ import com.arthurnagy.droidcon.R
 import com.arthurnagy.droidcon.model.Term
 import com.arthurnagy.droidcon.util.dimension
 
-@BindingMethods(*arrayOf(BindingMethod(type = TermsView::class, attribute = "terms", method = "setTerms")))
+@BindingMethods(BindingMethod(type = TermsView::class, attribute = "terms", method = "setTerms"))
 class TermsView
 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : LinearLayout(context, attrs, defStyleAttr) {

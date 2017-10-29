@@ -26,5 +26,6 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="session_is_about_to_start">Session is about to start</string>
     <string name="session_notification_message">%1$s is about to start on stage: %2$s</string>
+    <string name="content_desc_speaker_icon">Speaker icon</string>
 
 </resources>

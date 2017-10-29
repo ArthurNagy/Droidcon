@@ -20,6 +20,7 @@
         <ImageView
             android:layout_width="@dimen/speaker_icon_size"
             android:layout_height="@dimen/speaker_icon_size"
+            android:contentDescription="@string/content_desc_speaker_icon"
             android:tint="@color/accent"
             app:srcCompat="@drawable/ic_profile_24dp" />
 
