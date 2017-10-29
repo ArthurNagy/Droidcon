@@ -1,12 +1,12 @@
 package com.arthurnagy.droidcon.feature.agenda
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
+import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidcon.feature.agenda.list.MyAgendaAdapter
 import com.arthurnagy.droidcon.feature.shared.ViewModelBoundAdapter
 import com.arthurnagy.droidcon.model.Session
-import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,12 +18,12 @@ class MyAgendaViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
     val adapter = MyAgendaAdapter()
     val swipeRefreshState = ObservableBoolean()
-    val selectedSession: ObservableField<Session> = ObservableField()
+    val selectedSession = MutableLiveData<Session>()
 
     init {
         adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
             override fun onItemClicked(position: Int) {
-                selectedSession.set(adapter.getItem(position))
+                selectedSession.value = adapter.getItem(position)
             }
         })
     }
@@ -71,7 +71,7 @@ class MyAgendaViewModel @Inject constructor(
     fun removeSavedSessionFromAgenda() {
         adapter.removeItemToBeRemoved(doOnRemove = { session ->
             session.isSaved = false
-            disposables += sessionRepository.save(session)
+            disposables += sessionRepository.update(session)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({}, {})

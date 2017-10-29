@@ -1,7 +1,7 @@
 package com.arthurnagy.droidcon.feature.schedule.list
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
 import android.util.Log
 import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.architecture.viewmodel.DroidconViewModel
@@ -17,25 +17,20 @@ import javax.inject.Inject
 class ScheduleViewModel @Inject constructor(
         private val sessionRepository: SessionRepository) : DroidconViewModel() {
     val adapter = ScheduleAdapter()
-    val clickedSession = ObservableField<Session>()
+    val clickedSession = MutableLiveData<Session>()
     val swipeRefreshState = ObservableBoolean()
     private var scheduleDateCalendar: Calendar = Calendar.getInstance()
 
     init {
         adapter.setItemClickListener(object : ViewModelBoundAdapter.AdapterItemClickListener {
             override fun onItemClicked(position: Int) {
-                clickedSession.set(adapter.getItem(position))
+                clickedSession.value = adapter.getItem(position)
             }
         })
 
         adapter.setItemSavedClickListener { position ->
             val savedSession = adapter.getItem(position).apply { isSaved = !isSaved }
-            if (savedSession.isSaved) {
-                TODO()
-            } else {
-                TODO()
-            }
-            disposables += sessionRepository.save(savedSession)
+            disposables += sessionRepository.update(savedSession)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ session ->
@@ -76,10 +71,10 @@ class ScheduleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("LOFASZ", "sessionRepository.get:success")
+                    Log.d(TAG, "sessionRepository.get:success")
                     swipeRefreshState.set(false)
                 }, {
-                    Log.d("LOFASZ", "sessionRepository.get:error: ${it.message}")
+                    Log.d(TAG, "sessionRepository.get:error: ${it.message}")
                     swipeRefreshState.set(false)
                 })
     }
@@ -90,10 +85,10 @@ class ScheduleViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("LOFASZ", "sessionRepository.refresh:success")
+                    Log.d(TAG, "sessionRepository.refresh:success")
                     swipeRefreshState.set(false)
                 }, {
-                    Log.d("LOFASZ", "sessionRepository.refresh:error: ${it.message}")
+                    Log.d(TAG, "sessionRepository.refresh:error: ${it.message}")
                     swipeRefreshState.set(false)
                 })
     }

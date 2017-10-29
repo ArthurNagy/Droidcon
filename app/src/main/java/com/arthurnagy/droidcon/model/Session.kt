@@ -1,5 +1,6 @@
 package com.arthurnagy.droidcon.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
@@ -17,6 +18,7 @@ data class Session constructor(
         @SerializedName("start") val startDate: Date,
         @SerializedName("end") val endDate: Date,
         @SerializedName("description") val description: String?,
+        @ColumnInfo(name = "is_saved")
         var isSaved: Boolean = false) {
 
     @Ignore

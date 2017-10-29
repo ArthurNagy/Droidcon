@@ -20,7 +20,7 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
 
     fun updateItem(position: Int, session: Session) {
         items[position] = session
-        notifyItemChanged(position)
+        notifyItemChanged(position, SCHEDULE_PAYLOAD)
     }
 
     fun getItem(position: Int) = items[position]
@@ -44,4 +44,9 @@ class ScheduleAdapter : ViewModelBoundAdapter<ScheduleSessionItemBinding, Schedu
     override fun bindItem(holder: BindingViewHolder<ScheduleSessionItemBinding, ScheduleItemViewModel>, position: Int, payloads: List<Any>) {
         holder.viewModel.scheduleSession.set(items[position])
     }
+
+    companion object {
+        val SCHEDULE_PAYLOAD = Any()
+    }
+
 }

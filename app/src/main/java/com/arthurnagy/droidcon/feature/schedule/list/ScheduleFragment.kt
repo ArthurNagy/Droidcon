@@ -1,5 +1,6 @@
 package com.arthurnagy.droidcon.feature.schedule.list
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -12,7 +13,6 @@ import com.arthurnagy.droidcon.architecture.DroidconFragment
 import com.arthurnagy.droidcon.feature.session.SessionDetailActivity
 import com.arthurnagy.droidcon.feature.shared.StickyHeaderItemDecoration
 import com.arthurnagy.droidcon.util.color
-import com.arthurnagy.droidcon.util.observe
 
 class ScheduleFragment : DroidconFragment() {
 
@@ -36,16 +36,17 @@ class ScheduleFragment : DroidconFragment() {
 
         binding.scheduleRecycler.adapter = viewModel.adapter
         binding.scheduleRecycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        context?.let {
-            binding.scheduleRecycler.addItemDecoration(object : StickyHeaderItemDecoration(it) {
+        context?.let { context ->
+            binding.scheduleRecycler.addItemDecoration(object : StickyHeaderItemDecoration(context) {
                 override fun isHeader(position: Int) = viewModel.isHeaderItem(position)
 
                 override fun getHeaderTitle(position: Int) = viewModel.getHeaderItemTitle(position)
             })
-
-            viewModel.clickedSession.observe { session ->
-                SessionDetailActivity.start(it, session.id)
-            }
+            viewModel.clickedSession.observe(this, Observer { session ->
+                session?.let {
+                    SessionDetailActivity.start(context, it.id)
+                }
+            })
         }
     }
 

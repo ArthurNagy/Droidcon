@@ -4,9 +4,9 @@ import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import android.text.Html
 import com.arthurnagy.droidcon.R
+import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.architecture.viewmodel.DroidconViewModel
 import com.arthurnagy.droidcon.model.Session
-import com.arthurnagy.droidcon.architecture.repository.SessionRepository
 import com.arthurnagy.droidcon.util.dependsOn
 import com.arthurnagy.droidcon.util.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,29 +37,22 @@ class SessionDetailViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ session ->
                     this.session.set(session)
-                }, {
-
-                })
+                }, {})
     }
 
     fun updateSaveState() {
         session.get()?.let { session ->
-            session.apply { isSaved = !isSaved }
-            if (session.isSaved) {
-                TODO()
-            } else {
-                TODO()
-            }
-            disposables += sessionRepository.save(session)
+            disposables += sessionRepository.update(session.copy(isSaved = !session.isSaved))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({}, {})
+                    .subscribe({ updatedSession ->
+                        this.session.set(updatedSession)
+                    }, {})
         }
 
     }
 
     companion object {
-        private const val SESSION = "session"
         private const val END_DATE_PATTERN = "hh:mm a"
         private const val START_DATE_PATTERN = "EEE, MMM, $END_DATE_PATTERN"
         private const val NA = "N/A"

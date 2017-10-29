@@ -10,7 +10,6 @@ import io.reactivex.Single
 @Dao
 abstract class SessionDao {
 
-
     @Query("""SELECT * FROM ${Constants.TABLE_SESSION}
         WHERE id LIKE :id""")
     abstract fun getById(id: String): Single<Session>
@@ -58,6 +57,10 @@ abstract class SessionDao {
         }
     }
 
+    @Query("""SELECT id FROM ${Constants.TABLE_SESSION}
+        WHERE is_saved = 1""")
+    abstract fun getSavedSessionIds(): Single<List<String>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertAll(vararg sessions: Session): Array<Long>
 
@@ -91,5 +94,7 @@ abstract class SessionDao {
     @Delete
     abstract fun delete(session: Session): Int
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun update(session: Session): Int
 
 }

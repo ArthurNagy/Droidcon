@@ -26,6 +26,8 @@ class SessionRemoteSource @Inject constructor(
 
     override fun delete(data: Session): Observable<Boolean> = Observable.just(true)
 
+    override fun update(data: Session): Observable<Session> = Observable.just(data)
+
     override fun save(data: Session): Observable<Session> = Observable.just(data)
 
     override fun save(data: List<Session>): Observable<List<Session>> = Observable.just(data)

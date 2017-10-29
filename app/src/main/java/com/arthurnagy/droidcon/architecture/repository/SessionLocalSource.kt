@@ -5,6 +5,7 @@ import com.arthurnagy.droidcon.storage.database.SessionDao
 import com.arthurnagy.droidcon.storage.database.SpeakerDao
 import com.arthurnagy.droidcon.storage.database.TermDao
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,6 +27,10 @@ class SessionLocalSource @Inject constructor(
         result > 0
     }
 
+    override fun update(data: Session): Observable<Session> = Observable.fromCallable {
+        sessionDao.update(data)
+    }.flatMap { get(data.id) }
+
     override fun save(data: Session): Observable<Session> = Observable.fromCallable {
         data.terms?.let {
             termDao.insertAll(*it.toTypedArray())
@@ -37,17 +42,25 @@ class SessionLocalSource @Inject constructor(
         data
     }
 
-    override fun save(data: List<Session>): Observable<List<Session>> = Observable.fromCallable {
-        data.forEach { session ->
-            session.terms?.let { terms ->
-                termDao.insertAll(*terms.toTypedArray())
-            }
-            session.speakers?.let { speakers ->
-                speakerDao.insertAll(*speakers.toTypedArray())
-            }
-        }
-        sessionDao.insertSessions(*data.toTypedArray())
-        data
+    override fun save(data: List<Session>): Observable<List<Session>> {
+        return Observable.zip(sessionDao.getSavedSessionIds()
+                .toObservable().onErrorResumeNext(Observable.empty<List<String>>()),
+                Observable.just(data),
+                BiFunction<List<String>, List<Session>, List<Session>> { savedSessionIds, sessions ->
+                    sessions.forEach { session ->
+                        session.isSaved = savedSessionIds.contains(session.id)
+                    }
+                    sessions.forEach { session ->
+                        session.terms?.let { terms ->
+                            termDao.insertAll(*terms.toTypedArray())
+                        }
+                        session.speakers?.let { speakers ->
+                            speakerDao.insertAll(*speakers.toTypedArray())
+                        }
+                    }
+                    sessionDao.insertSessions(*sessions.toTypedArray())
+                    sessions
+                })
     }
 
 }
