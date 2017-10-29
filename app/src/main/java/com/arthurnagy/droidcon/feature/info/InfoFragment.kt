@@ -29,8 +29,8 @@ class InfoFragment : DroidconFragment() {
         val viewModel = getViewModel(InfoViewModel::class.java)
         binding.viewModel = viewModel
 
-        binding.codeOfConduct.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/code-conduct") }
-        binding.venue.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + "/en/berlin/17/venue") }
+        binding.codeOfConduct.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + BuildConfig.CODE_OF_CONDUCT) }
+        binding.venue.setOnClickListener { context?.openUrl(BuildConfig.DROIDCON_URL + BuildConfig.VENUE) }
         binding.viewOnGitHub.setOnClickListener { context?.openUrl(GIT_HUB_URL) }
         binding.share.setOnClickListener {
             startActivity(Intent.createChooser(Intent().apply {

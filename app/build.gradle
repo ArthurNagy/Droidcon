@@ -14,14 +14,25 @@ android {
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "String", "DROIDCON_URL", "\"https://droidcon.de\""
-
     }
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "city"
+    productFlavors {
+        berlin {
+            applicationIdSuffix = ".berlin"
+            versionNameSuffix = "-berlin"
+            dimension "city"
+
+            buildConfigField "String", "DROIDCON_URL", "\"https://droidcon.de\""
+            buildConfigField "String", "CODE_OF_CONDUCT", "\"/en/berlin/17/code-conduct\""
+            buildConfigField "String", "VENUE", "\"/en/berlin/17/venue\""
+            buildConfigField "String", "FEED_API_URL", "\"eventfeed/0?start=2017-09-04&end=2017-09-05\""
         }
     }
     dataBinding {
