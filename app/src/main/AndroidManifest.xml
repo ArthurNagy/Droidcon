@@ -35,14 +35,6 @@
             android:parentActivityName="com.arthurnagy.droidcon.feature.MainActivity"
             android:screenOrientation="portrait" />
 
-        <service
-            android:exported="false"
-            android:name=".SessionJobService">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-
     </application>
 
 </manifest>

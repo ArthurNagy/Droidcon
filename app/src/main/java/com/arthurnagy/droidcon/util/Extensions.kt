@@ -42,16 +42,16 @@ fun Context.openUrl(url: String) = CustomTabsIntent.Builder()
         .setShowTitle(true)
         .build().launchUrl(this, Uri.parse(url))
 
+operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
+    add(disposable)
+}
+
 fun View.showSnackbar(@StringRes message: Int, length: Int = Snackbar.LENGTH_LONG, @StringRes action: Int = 0, actionListener: (view: View) -> Unit = {}) {
     val snackbar = Snackbar.make(this, message, length)
     if (action != 0) {
         snackbar.setAction(action, actionListener)
     }
     snackbar.show()
-}
-
-operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
 }
 
 inline fun <T, R> ObservableField<R>.dependsOn(dependableField: ObservableField<T>, crossinline mapper: (T) -> R): ObservableField<R> {
@@ -61,14 +61,6 @@ inline fun <T, R> ObservableField<R>.dependsOn(dependableField: ObservableField<
         }
     })
     return this
-}
-
-inline fun <R> ObservableField<R>.observe(crossinline observer: (R) -> Unit) {
-    this.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-        override fun onPropertyChanged(p0: Observable?, p1: Int) {
-            observer(get())
-        }
-    })
 }
 
 inline fun <R> ObservableField<R>.dependsOn(vararg dependableFields: ObservableField<out Any>, crossinline mapper: () -> R): ObservableField<R> {
@@ -98,4 +90,12 @@ inline fun <T> ObservableInt.dependsOn(observableField: ObservableField<T>, cros
         }
     })
     return this
+}
+
+inline fun <R> ObservableField<R>.observe(crossinline observer: (R) -> Unit) {
+    this.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(p0: Observable?, p1: Int) {
+            observer(get())
+        }
+    })
 }
